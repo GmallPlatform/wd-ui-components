@@ -1,3 +1,10 @@
+## [1.0.3](https://github.com/GmallPlatform/wd-ui-components/compare/v1.0.2...v1.0.3) (2025-04-07)
+
+
+### Bug Fixes
+
+* add types export ([3d35682](https://github.com/GmallPlatform/wd-ui-components/commit/3d35682a44326d3b7e4c44181f1a0b7e6e790139))
+
 ## [1.0.2](https://github.com/GmallPlatform/wd-ui-components/compare/v1.0.1...v1.0.2) (2025-04-07)
 
 
