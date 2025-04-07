@@ -1,3 +1,10 @@
+## [1.0.2](https://github.com/GmallPlatform/wd-ui-components/compare/v1.0.1...v1.0.2) (2025-04-07)
+
+
+### Bug Fixes
+
+* remove husky from postinstall from editor ([96e3a9a](https://github.com/GmallPlatform/wd-ui-components/commit/96e3a9a7c2dbe459e5251c9faeab2b0f2c900caa))
+
 ## [1.0.1](https://github.com/GmallPlatform/wd-ui-components/compare/v1.0.0...v1.0.1) (2025-04-07)
 
 
