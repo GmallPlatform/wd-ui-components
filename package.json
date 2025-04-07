@@ -1,0 +1,124 @@
+{
+  "name": "wd-ui-components",
+  "version": "0.0.1",
+  "license": "MIT",
+  "private": false,
+  "type": "module",
+  "main": "dist/index.cjs",
+  "module": "dist/index.mjs",
+  "types": "dist/index.d.ts",
+  "files": [
+    "dist",
+    "dist/style.css"
+  ],
+  "exports": {
+    ".": {
+      "import": "./dist/index.mjs",
+      "require": "./dist/index.cjs"
+    },
+    "./style.css": "./dist/style.css"
+  },
+  "typesVersions": {
+    "*": {
+      "*": [
+        "dist/index.d.ts"
+      ]
+    }
+  },
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc && vite build",
+    "preview": "vite preview",
+    "storybook": "storybook dev -p 6006",
+    "build-storybook": "storybook build",
+    "size": "size-limit",
+    "analyze": "size-limit --why",
+    "pre-commit": "npm run lint --fix",
+    "test": "jest --bail",
+    "lint": "eslint 'src/**/*.{js,jsx,ts,tsx}' --fix",
+    "format": "prettier --write 'src/**/*.{js,jsx,ts,tsx,json,css,md}'",
+    "prepare": "husky install",
+    "release": "np",
+    "semantic-release": "semantic-release",
+    "prepack": "npm run build",
+    "postinstall": "husky install"
+  },
+  "dependencies": {
+    "@hookform/resolvers": "^4.1.3",
+    "class-variance-authority": "^0.7.1",
+    "clsx": "^2.1.1",
+    "lucide": "^0.484.0",
+    "lucide-react": "^0.484.0",
+    "react": "^18.3.1",
+    "react-datepicker": "^8.2.1",
+    "react-dom": "^18.3.1",
+    "react-hook-form": "^7.54.2",
+    "react-select": "^5.10.1",
+    "tailwind-merge": "^3.0.2",
+    "texteditor-lexical": "^1.0.11",
+    "yup": "^1.6.1"
+  },
+  "devDependencies": {
+    "@chromatic-com/storybook": "^3.2.2",
+    "@eslint/js": "^9.16.0",
+    "@semantic-release/changelog": "^6.0.3",
+    "@semantic-release/commit-analyzer": "^13.0.1",
+    "@semantic-release/exec": "^7.0.3",
+    "@semantic-release/git": "^10.0.1",
+    "@semantic-release/gitlab": "^13.2.4",
+    "@semantic-release/npm": "^12.0.1",
+    "@semantic-release/release-notes-generator": "^14.0.3",
+    "@storybook/addon-essentials": "^8.4.5",
+    "@storybook/addon-interactions": "^8.4.5",
+    "@storybook/addon-onboarding": "^8.4.5",
+    "@storybook/blocks": "^8.4.5",
+    "@storybook/react": "^8.4.5",
+    "@storybook/react-vite": "^8.4.5",
+    "@storybook/test": "^8.4.5",
+    "@tailwindcss/vite": "^4.1.3",
+    "@testing-library/jest-dom": "^6.6.3",
+    "@testing-library/react": "^16.0.1",
+    "@types/jest": "^29.5.14",
+    "@types/node": "^22.10.0",
+    "@types/react": "^18.3.12",
+    "@types/react-dom": "^18.3.1",
+    "@typescript-eslint/eslint-plugin": "^8.16.0",
+    "@typescript-eslint/parser": "^8.16.0",
+    "@vitejs/plugin-react": "^4.3.4",
+    "autoprefixer": "^10.4.21",
+    "eslint": "^9.16.0",
+    "eslint-config-prettier": "^10.0.1",
+    "eslint-plugin-prettier": "^5.2.3",
+    "eslint-plugin-react": "^7.37.2",
+    "eslint-plugin-react-hooks": "^5.0.0",
+    "eslint-plugin-react-refresh": "^0.4.14",
+    "eslint-plugin-sort-keys-fix": "^1.1.2",
+    "globals": "^15.12.0",
+    "husky": "^8.0.0",
+    "identity-obj-proxy": "^3.0.0",
+    "jest": "^29.7.0",
+    "jest-environment-jsdom": "^29.7.0",
+    "semantic-release": "^24.2.3",
+    "storybook": "^8.4.5",
+    "tailwindcss": "^4.1.3",
+    "ts-jest": "^29.2.5",
+    "ts-node": "^10.9.2",
+    "tw-animate-css": "^1.2.5",
+    "typescript": "",
+    "typescript-eslint": "^8.16.0",
+    "vite": "",
+    "vite-plugin-dts": ""
+  },
+  "eslintConfig": {
+    "extends": [
+      "plugin:storybook/recommended"
+    ]
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/GmallPlatform/wd-ui-components.git"
+  }
+}

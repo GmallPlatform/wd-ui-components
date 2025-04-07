@@ -1,0 +1,37 @@
+{
+  "branches": ["main"],
+  "plugins": [
+    "@semantic-release/commit-analyzer",
+    "@semantic-release/release-notes-generator",
+    "@semantic-release/changelog",
+    "@semantic-release/npm",
+    [
+      "@semantic-release/github",
+      {
+        "assets": [
+          {
+            "path": "dist/index.mjs",
+            "name": "index-${nextRelease.version}.mjs"
+          },
+          {
+            "path": "dist/index.cjs",
+            "name": "index-${nextRelease.version}.cjs"
+          },
+          {
+            "path": "dist/style.css",
+            "name": "style-${nextRelease.version}.css"
+          }
+        ],
+        "failOnMissing": false,
+        "failOnDuplicateAssets": false
+      }
+    ],
+    [
+      "@semantic-release/git",
+      {
+        "assets": ["CHANGELOG.md", "package.json"],
+        "message": "chore(release): ${nextRelease.version} [skip ci]\n\n${nextRelease.notes}"
+      }
+    ]
+  ]
+}
