@@ -69,8 +69,6 @@ export const App: React.FC = () => {
   return (
     <div className="main-wrapper">
       <div className="main-container">
-        <h1>Hello world!</h1>
-        <div className="bg-teal-500 text-white p-4">Tailwind работает?</div>
         <button
           onClick={() => {
             console.log(formRef.current, "formRef");
