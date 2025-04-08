@@ -1,3 +1,10 @@
+## [1.0.8](https://github.com/GmallPlatform/wd-ui-components/compare/v1.0.7...v1.0.8) (2025-04-08)
+
+
+### Bug Fixes
+
+* add InputLabel ([a67974e](https://github.com/GmallPlatform/wd-ui-components/commit/a67974ea80bc684fe4ddc79553c2a15a8b06a9a4))
+
 ## [1.0.7](https://github.com/GmallPlatform/wd-ui-components/compare/v1.0.6...v1.0.7) (2025-04-08)
 
 
