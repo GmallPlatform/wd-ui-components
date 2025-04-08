@@ -1,3 +1,10 @@
+## [1.0.5](https://github.com/GmallPlatform/wd-ui-components/compare/v1.0.4...v1.0.5) (2025-04-08)
+
+
+### Bug Fixes
+
+* add import types ([e8bb6c3](https://github.com/GmallPlatform/wd-ui-components/commit/e8bb6c3e004278f24f75873b98dc6fcbdf1e03ae))
+
 ## [1.0.4](https://github.com/GmallPlatform/wd-ui-components/compare/v1.0.3...v1.0.4) (2025-04-08)
 
 
