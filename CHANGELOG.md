@@ -1,3 +1,10 @@
+## [1.0.6](https://github.com/GmallPlatform/wd-ui-components/compare/v1.0.5...v1.0.6) (2025-04-08)
+
+
+### Bug Fixes
+
+* add side effects ([ac88e52](https://github.com/GmallPlatform/wd-ui-components/commit/ac88e5297dde1f6f5bb630623ef0dec3d27f94dd))
+
 ## [1.0.5](https://github.com/GmallPlatform/wd-ui-components/compare/v1.0.4...v1.0.5) (2025-04-08)
 
 
