@@ -1,3 +1,13 @@
+## [1.0.10](https://github.com/GmallPlatform/wd-ui-components/compare/v1.0.9...v1.0.10) (2025-04-08)
+
+
+### Bug Fixes
+
+* change formState ([93a8046](https://github.com/GmallPlatform/wd-ui-components/commit/93a8046b8ec0a12fac0e40cf28bf5d0084750cd2))
+* change formState for all inputs ([89e752b](https://github.com/GmallPlatform/wd-ui-components/commit/89e752b7c4c3db97c05b00191e55df141f250731))
+* fix some bugs ([0790c4e](https://github.com/GmallPlatform/wd-ui-components/commit/0790c4e96f1c58cb6c4dad5c4c47888d2e13b0a9))
+* fix some bugs ([5c69308](https://github.com/GmallPlatform/wd-ui-components/commit/5c6930885a8fde2d102a31a89d625e3790545b30))
+
 ## [1.0.9](https://github.com/GmallPlatform/wd-ui-components/compare/v1.0.8...v1.0.9) (2025-04-08)
 
 
