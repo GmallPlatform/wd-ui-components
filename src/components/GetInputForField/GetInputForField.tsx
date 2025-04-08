@@ -3,7 +3,6 @@ import { InputSwitch } from "../inputs/InputSwitch";
 import { InputRadio } from "../inputs/InputRadio";
 import { IEditField } from "../../types/fields";
 import { InputDate } from "../inputs/InputDate";
-
 import { InputSelect } from "../inputs/Select";
 import { InputEditor } from "../inputs/InputEditor";
 

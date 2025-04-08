@@ -44,20 +44,7 @@
     "semantic-release": "semantic-release",
     "prepack": "npm run build"
   },
-  "dependencies": {
-    "@hookform/resolvers": "^4.1.3",
-    "class-variance-authority": "^0.7.1",
-    "clsx": "^2.1.1",
-    "lucide": "^0.484.0",
-    "lucide-react": "^0.484.0",
-    "react": "^18.3.1",
-    "react-datepicker": "^8.2.1",
-    "react-dom": "^18.3.1",
-    "react-select": "^5.10.1",
-    "tailwind-merge": "^3.0.2",
-    "texteditor-lexical": "^1.0.15",
-    "yup": "^1.6.1"
-  },
+  "dependencies": {},
   "devDependencies": {
     "@chromatic-com/storybook": "^3.2.2",
     "@eslint/js": "^9.16.0",
@@ -112,7 +99,19 @@
     "vite-plugin-lib-inject-css": "^2.2.1"
   },
   "peerDependencies": {
-    "react-hook-form": "^7.54.2"
+    "@hookform/resolvers": "^4.1.3",
+    "react-hook-form": "^7.54.2",
+    "lucide": "^0.484.0",
+    "lucide-react": "^0.484.0",
+    "react": "^18.3.1",
+    "react-datepicker": "^8.2.1",
+    "react-dom": "^18.3.1",
+    "react-select": "^5.10.1",
+    "texteditor-lexical": "^1.0.15",
+    "yup": "^1.6.1",
+    "class-variance-authority": "^0.7.1",
+    "clsx": "^2.1.1",
+    "tailwind-merge": "^3.0.2"
   },
   "eslintConfig": {
     "extends": [
