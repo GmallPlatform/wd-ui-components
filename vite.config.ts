@@ -20,7 +20,7 @@ export default defineConfig({
   build: {
     lib: {
       entry: "src/index.ts", // Главный файл
-      name: "LexicalEditor",
+      name: "wd-ui-components",
       formats: ["es", "cjs"], // ESM и CJS форматы
       fileName: (format) => `index.${format === "es" ? "mjs" : "cjs"}`,
     },

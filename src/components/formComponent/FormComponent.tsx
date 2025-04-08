@@ -1,6 +1,5 @@
 import React, { forwardRef, useImperativeHandle, useRef } from "react";
 import { FormProvider, useForm } from "react-hook-form";
-import styles from "./FormComponent.module.css";
 import * as Yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
 import "../../styles/globals.css";
@@ -131,13 +130,13 @@ const FormWithFieldsCompnent = forwardRef<EntityFormRef, FormProps>(
             onSubmit={(e) => e.preventDefault()}
             noValidate
             autoComplete="off"
-            className={styles.form}
+            className="flex flex-col items-start gap-8 w-full"
           >
             {fieldsForDisplay.map(
               (field: IEditField[] | IEditField, index: number) => (
                 <React.Fragment key={index}>
                   {Array.isArray(field) ? (
-                    <div className={styles.input_container_for_from}>
+                    <div className="flex items-start gap-4 rounded w-full">
                       {field.map((f: IEditField) => (
                         <GetInputForField
                           key={f.name}
@@ -148,7 +147,7 @@ const FormWithFieldsCompnent = forwardRef<EntityFormRef, FormProps>(
                       ))}
                     </div>
                   ) : (
-                    <div className={styles.input_container_for_from}>
+                    <div className="flex items-start gap-4 rounded w-full">
                       <GetInputForField
                         key={field.name}
                         currentItem={currentItem}

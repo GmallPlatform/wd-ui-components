@@ -1,7 +1,7 @@
 import { Control, useController } from "react-hook-form";
 import InputLabel from "./InputLabel";
-import { LexicalEditor } from "texteditor-lexical";
 import { useState } from "react";
+import InputHTMLEditor from "./InputHTMLEditor";
 
 export const InputEditor = ({
   name,
@@ -63,7 +63,7 @@ export const InputEditor = ({
         />
       )}
 
-      <LexicalEditor
+      <InputHTMLEditor
         key={`${name}-${currentItem.id || "new"}`}
         initialContent={currentItem[name] || ""}
         onContentChange={(content) => controlledField.onChange(content)} // Передаем изменение значения в react-hook-form
