@@ -1,4 +1,4 @@
-import { Controller, useFormContext } from "react-hook-form";
+import { Controller } from "react-hook-form";
 import Select from "react-select";
 import InputLabel from "./InputLabel";
 import findInputError from "./utils";
@@ -27,6 +27,7 @@ interface InputSelectProps {
   isSearchable?: boolean;
   isMulti?: boolean;
   noOptionsMessage?: string;
+  formState: any;
 }
 
 export const InputSelect = ({
@@ -42,10 +43,9 @@ export const InputSelect = ({
   isSearchable,
   noOptionsMessage,
   isMulti,
+  formState,
 }: InputSelectProps) => {
-  const {
-    formState: { errors },
-  } = useFormContext();
+  const { errors } = formState;
 
   const inputErrors = findInputError(errors, name);
   const isInvalid = Object.keys(inputErrors).length > 0;

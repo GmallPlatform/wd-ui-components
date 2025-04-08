@@ -1,4 +1,4 @@
-import { Controller, useFormContext } from "react-hook-form";
+import { Controller } from "react-hook-form";
 import { useState } from "react";
 import InputLabel from "./InputLabel";
 
@@ -18,6 +18,7 @@ export const InputRadio = ({
   helperText,
   required,
   control,
+  formState,
 }: {
   name: string;
   label?: string;
@@ -28,10 +29,9 @@ export const InputRadio = ({
   helperText?: string;
   required?: boolean;
   control: any;
+  formState: any;
 }) => {
-  const {
-    formState: { errors },
-  } = useFormContext();
+  const { errors } = formState;
 
   const inputErrors = findInputError(errors, name);
   const isInvalid = isFormInvalid(inputErrors);

@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Controller, useFormContext } from "react-hook-form";
+import { Controller } from "react-hook-form";
 import DatePicker from "react-datepicker";
 import InputLabel from "./InputLabel";
 import "react-datepicker/dist/react-datepicker.css";
@@ -37,6 +37,7 @@ export const InputDate = ({
   helperText,
   required,
   control,
+  formState,
 }: {
   name: string;
   label?: string;
@@ -46,10 +47,9 @@ export const InputDate = ({
   required?: boolean;
 
   control: any;
+  formState: any;
 }) => {
-  const {
-    formState: { errors },
-  } = useFormContext();
+  const { errors } = formState;
 
   const inputErrors = findInputError(errors, name);
   const isInvalid = isFormInvalid(inputErrors);

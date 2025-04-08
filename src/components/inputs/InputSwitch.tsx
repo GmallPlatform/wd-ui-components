@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Controller, useFormContext } from "react-hook-form";
+import { Controller } from "react-hook-form";
 import CustomSwitch from "./CustomSwitch";
 
 const isFormInvalid = (err: any) => {
@@ -14,6 +14,7 @@ export const InputSwitch = ({
   disabled = false,
   helperText,
   control,
+  formState,
 }: {
   name: string;
   label?: string;
@@ -23,10 +24,9 @@ export const InputSwitch = ({
   required?: boolean;
 
   control: any;
+  formState: any;
 }) => {
-  const {
-    formState: { errors },
-  } = useFormContext();
+  const { errors } = formState;
 
   const inputErrors = findInputError(errors, name);
   const isInvalid = isFormInvalid(inputErrors);

@@ -16,6 +16,7 @@ export const InputText = ({
   width,
   control,
   size = "md",
+  formState,
 }: {
   name: string;
   label?: string;
@@ -27,10 +28,9 @@ export const InputText = ({
   width?: string;
   control: Control<any>;
   size?: "sm" | "md";
+  formState: any;
 }) => {
-  const {
-    formState: { errors },
-  } = useFormContext();
+  const { errors } = formState;
 
   const inputErrors = findInputError(errors, name);
   const isInvalid = Object.keys(inputErrors).length > 0;

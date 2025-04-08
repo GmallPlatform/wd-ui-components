@@ -10,10 +10,12 @@ const GetInputForField = ({
   field,
   control,
   currentItem,
+  formState,
 }: {
   field: IEditField;
   control: any;
   currentItem: any;
+  formState: any;
 }) => {
   return (
     <>
@@ -27,6 +29,7 @@ const GetInputForField = ({
       ) : field.type === "select" ? (
         <InputSelect
           {...field}
+          formState={formState}
           control={control}
           disabled={Boolean(currentItem.id && field.forEditPageDisabled)}
           options={field.options || []}
@@ -34,18 +37,21 @@ const GetInputForField = ({
       ) : field.type === "switch" || field.type === "boolean" ? (
         <InputSwitch
           {...field}
+          formState={formState}
           control={control}
           disabled={Boolean(currentItem.id && field.forEditPageDisabled)}
         />
       ) : field.type === "radio" ? (
         <InputRadio
           {...field}
+          formState={formState}
           control={control}
           disabled={Boolean(currentItem.id && field.forEditPageDisabled)}
         />
       ) : field.type === "multipleSelect" ? (
         <InputSelect
           {...field}
+          formState={formState}
           isMulti={true}
           control={control}
           disabled={Boolean(currentItem.id && field.forEditPageDisabled)}
@@ -54,11 +60,13 @@ const GetInputForField = ({
       ) : field.type === "date" ? (
         <InputDate
           {...field}
+          formState={formState}
           control={control}
           disabled={Boolean(currentItem.id && field.forEditPageDisabled)}
         />
       ) : (
         <InputText
+          formState={formState}
           control={control}
           {...field}
           disabled={Boolean(currentItem.id && field.forEditPageDisabled)}
