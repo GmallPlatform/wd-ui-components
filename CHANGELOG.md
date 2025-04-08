@@ -1,3 +1,10 @@
+## [1.0.9](https://github.com/GmallPlatform/wd-ui-components/compare/v1.0.8...v1.0.9) (2025-04-08)
+
+
+### Bug Fixes
+
+* change dependincies ([0cb544a](https://github.com/GmallPlatform/wd-ui-components/commit/0cb544ae9ad1f2fce715f23459fd23721928c193))
+
 ## [1.0.8](https://github.com/GmallPlatform/wd-ui-components/compare/v1.0.7...v1.0.8) (2025-04-08)
 
 
