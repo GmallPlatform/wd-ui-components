@@ -1,3 +1,10 @@
+## [1.0.4](https://github.com/GmallPlatform/wd-ui-components/compare/v1.0.3...v1.0.4) (2025-04-08)
+
+
+### Bug Fixes
+
+* add editor html export ([a7007e6](https://github.com/GmallPlatform/wd-ui-components/commit/a7007e68ff145608cf0c58d4627e43137d903125))
+
 ## [1.0.3](https://github.com/GmallPlatform/wd-ui-components/compare/v1.0.2...v1.0.3) (2025-04-07)
 
 
