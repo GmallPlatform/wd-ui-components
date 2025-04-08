@@ -1,3 +1,10 @@
+## [1.0.7](https://github.com/GmallPlatform/wd-ui-components/compare/v1.0.6...v1.0.7) (2025-04-08)
+
+
+### Bug Fixes
+
+* add InputText ([f6903f5](https://github.com/GmallPlatform/wd-ui-components/commit/f6903f5bb48ae43ef5bc7f6652d5ae488c09be93))
+
 ## [1.0.6](https://github.com/GmallPlatform/wd-ui-components/compare/v1.0.5...v1.0.6) (2025-04-08)
 
 
