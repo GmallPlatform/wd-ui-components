@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Control, Controller, useFormContext } from "react-hook-form";
+import { Control, Controller, useController } from "react-hook-form";
 import InputLabel from "./InputLabel";
 import findInputError from "./utils";
 import InputBase from "./InputBase";

@@ -83,7 +83,6 @@ const FormWithFieldsCompnent = forwardRef<EntityFormRef, FormProps>(
       resolver: yupResolver(resolverSchema),
       defaultValues,
     });
-    const { formState } = useFormContext();
 
     const handleSubmitInner = async (data: any) => {
       console.log(data, "data");
@@ -144,7 +143,7 @@ const FormWithFieldsCompnent = forwardRef<EntityFormRef, FormProps>(
                           currentItem={currentItem}
                           field={f}
                           control={methods.control}
-                          formState={formState}
+                          formState={methods.formState}
                         />
                       ))}
                     </div>
@@ -155,7 +154,7 @@ const FormWithFieldsCompnent = forwardRef<EntityFormRef, FormProps>(
                         currentItem={currentItem}
                         field={field}
                         control={methods.control}
-                        formState={formState}
+                        formState={methods.formState}
                       />
                     </div>
                   )}
