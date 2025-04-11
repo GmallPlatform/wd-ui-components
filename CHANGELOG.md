@@ -1,3 +1,11 @@
+## [1.0.11](https://github.com/GmallPlatform/wd-ui-components/compare/v1.0.10...v1.0.11) (2025-04-11)
+
+
+### Bug Fixes
+
+* **api:** add some components ([03b3e54](https://github.com/GmallPlatform/wd-ui-components/commit/03b3e542b0814a0a1965b793ed70f70b25389616))
+* **api:** ensure consistent return values and improve error handling in async requests ([31c134b](https://github.com/GmallPlatform/wd-ui-components/commit/31c134bdfe31caa216d728ab9c0079a1f08b9fe0))
+
 ## [1.0.10](https://github.com/GmallPlatform/wd-ui-components/compare/v1.0.9...v1.0.10) (2025-04-08)
 
 
