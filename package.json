@@ -44,7 +44,6 @@
     "semantic-release": "semantic-release",
     "prepack": "npm run build"
   },
-  "dependencies": {},
   "devDependencies": {
     "@chromatic-com/storybook": "^3.2.2",
     "@eslint/js": "^9.16.0",
@@ -100,18 +99,18 @@
   },
   "peerDependencies": {
     "@hookform/resolvers": "^4.1.3",
-    "react-hook-form": "^7.54.2",
+    "class-variance-authority": "^0.7.1",
+    "clsx": "^2.1.1",
     "lucide": "^0.484.0",
     "lucide-react": "^0.484.0",
     "react": "^18.3.1",
     "react-datepicker": "^8.2.1",
     "react-dom": "^18.3.1",
+    "react-hook-form": "^7.54.2",
     "react-select": "^5.10.1",
-    "texteditor-lexical": "^1.0.15",
-    "yup": "^1.6.1",
-    "class-variance-authority": "^0.7.1",
-    "clsx": "^2.1.1",
-    "tailwind-merge": "^3.0.2"
+    "tailwind-merge": "^3.0.2",
+    "texteditor-lexical": "^1.0.17",
+    "yup": "^1.6.1"
   },
   "eslintConfig": {
     "extends": [
@@ -124,5 +123,8 @@
   "repository": {
     "type": "git",
     "url": "https://github.com/GmallPlatform/wd-ui-components.git"
+  },
+  "dependencies": {
+    "react-dropzone": "^14.3.8"
   }
 }

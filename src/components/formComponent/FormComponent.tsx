@@ -2,7 +2,6 @@ import React, { forwardRef, useImperativeHandle, useRef } from "react";
 import { FormProvider, useForm } from "react-hook-form";
 import * as Yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
-import "../../styles/globals.css";
 import { useEffect, useMemo } from "react";
 import { createSchema } from "../../utils/createSchema";
 import { removeNoneOptions } from "../../utils/removeNoneOptions";

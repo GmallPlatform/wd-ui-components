@@ -1,9 +1,18 @@
 @import "tw-animate-css";
 @import "tailwindcss";
 @import "./colors.css";
+.rotate {
+  /* Use the defined 'spin' animation */
+  animation: spin 0.8s linear infinite;
+  /* Explanation:
+     - 'spin' is the name of the keyframes animation defined above.
+     - '2s' is the duration of one full rotation cycle. Adjust as needed for faster or slower rotation.
+     - 'linear' means the animation speed is constant.
+     - 'infinite' makes the animation repeat indefinitely. */
+}
 
 @theme {
-  --color-primary: #625483;
+  --color-primary: #52466c;
   --color-primary-light: #8777b0;
   --color-primary-dark: #352d48;
 
@@ -18,6 +27,202 @@
   --color-primary-800: #625483;
   --color-primary-900: #52466c;
   --color-primary-950: #352d48;
+
+  --color-red-100: #fef2f0;
+  --color-red-200: #ffcecb;
+  --color-red-300: #ffaba8;
+  --color-red-400: #ff8182;
+  --color-red-500: #fa4549;
+  --color-red-600: #cf222e;
+  --color-red-700: #a40e26;
+  --color-red-800: #82071e;
+  --color-red-900: #660018;
+  --color-red-1000: #2c1017;
+
+  --color-green-100: #edfdf0;
+  --color-green-200: #aceebb;
+  --color-green-300: #6fdd8b;
+  --color-green-400: #4ac26b;
+  --color-green-500: #2da44e;
+  --color-green-600: #1a7f37;
+  --color-green-700: #116329;
+  --color-green-800: #044f1e;
+  --color-green-900: #003d16;
+  --color-green-1000: #002d11;
+
+  --color-orange-100: #fef1e6;
+  --color-orange-200: #ffd8b5;
+  --color-orange-300: #ffb77c;
+  --color-orange-400: #fb8f44;
+  --color-orange-500: #e16f24;
+  --color-orange-600: #bc4c00;
+  --color-orange-700: #953800;
+  --color-orange-800: #762c00;
+  --color-orange-900: #5c2200;
+  --color-orange-1000: #471700;
+}
+:root {
+  --primary-700: rgba(117, 100, 157, 1);
+  --primary-200: rgba(229, 228, 240, 1);
+  --gray-200: rgba(209, 209, 209, 1);
+  --gray-400: rgba(136, 136, 136, 1);
+}
+:root {
+  /* Collection: Color Primitives */
+
+  /* Mode: Mode 1 */
+  --primary-50: rgba(248, 247, 251, 1);
+  --primary-100: rgba(236, 235, 244, 1);
+  --primary-200: rgba(229, 228, 240, 1);
+  --primary-300: rgba(208, 206, 228, 1);
+  --primary-400: rgba(183, 177, 212, 1);
+  --primary-500: rgba(155, 145, 193, 1);
+  --primary-600: rgba(135, 119, 176, 1);
+  --primary-700: rgba(117, 100, 157, 1);
+  --primary-800: rgba(98, 84, 131, 1);
+  --primary-900: rgba(82, 70, 108, 1);
+  --primary-950: rgba(53, 45, 72, 1);
+  --primary-with-opacity-100: rgba(183, 177, 212, 0.05);
+  --primary-with-opacity-200: rgba(183, 177, 212, 0.1);
+  --primary-with-opacity-300: rgba(183, 177, 212, 0.2);
+  --primary-with-opacity-400: rgba(183, 177, 212, 0.45);
+  --primary-with-opacity-500: rgba(183, 177, 212, 0.65);
+  --primary-with-opacity-600: rgba(183, 177, 212, 0.8);
+  --primary-with-opacity-700: rgba(183, 177, 212, 0.85);
+  --primary-with-opacity-800: rgba(183, 177, 212, 0.9);
+  --primary-with-opacity-900: rgba(183, 177, 212, 0.95);
+  --gray-white: rgba(255, 255, 255, 1);
+  --gray-50: rgba(250, 250, 250, 1);
+  --gray-100: rgba(227, 227, 227, 1);
+  --gray-200: rgba(209, 209, 209, 1);
+  --gray-300: rgba(176, 176, 176, 1);
+  --gray-400: rgba(136, 136, 136, 1);
+  --gray-500: rgba(109, 109, 109, 1);
+  --gray-600: rgba(93, 93, 93, 1);
+  --gray-700: rgba(79, 79, 79, 1);
+  --gray-800: rgba(69, 69, 69, 1);
+  --gray-900: rgba(61, 61, 61, 1);
+  --gray-black: rgba(25, 25, 25, 1);
+  --black-with-opacity-100: rgba(25, 25, 25, 0.05);
+  --white-with-opacity-100: rgba(255, 255, 255, 0.05);
+  --white-with-opacity-200: rgba(255, 255, 255, 0.1);
+  --white-with-opacity-300: rgba(255, 255, 255, 0.2);
+  --white-with-opacity-400: rgba(255, 255, 255, 0.45);
+  --white-with-opacity-500: rgba(255, 255, 255, 0.65);
+  --white-with-opacity-600: rgba(255, 255, 255, 0.8);
+  --white-with-opacity-700: rgba(255, 255, 255, 0.85);
+  --white-with-opacity-800: rgba(255, 255, 255, 0.9);
+  --white-with-opacity-900: rgba(255, 255, 255, 0.95);
+  --black-with-opacity-200: rgba(25, 25, 25, 0.1);
+  --black-with-opacity-300: rgba(25, 25, 25, 0.2);
+  --black-with-opacity-400: rgba(25, 25, 25, 0.45);
+  --black-with-opacity-500: rgba(25, 25, 25, 0.7);
+  --black-with-opacity-600: rgba(25, 25, 25, 0.8);
+  --black-with-opacity-700: rgba(25, 25, 25, 0.85);
+  --black-with-opacity-800: rgba(25, 25, 25, 0.9);
+  --black-with-opacity-900: rgba(25, 25, 25, 0.95);
+  --green-100: rgba(237, 253, 240, 1);
+  --green-200: rgba(172, 238, 187, 1);
+  --green-300: rgba(111, 221, 139, 1);
+  --green-400: rgba(74, 194, 107, 1);
+  --green-500: rgba(45, 164, 78, 1);
+  --green-600: rgba(26, 127, 55, 1);
+  --green-700: rgba(17, 99, 41, 1);
+  --green-800: rgba(4, 79, 30, 1);
+  --green-900: rgba(0, 61, 22, 1);
+  --green-1000: rgba(0, 45, 17, 1);
+  --blue-100: rgba(232, 248, 255, 1);
+  --blue-200: rgba(182, 227, 255, 1);
+  --blue-300: rgba(128, 204, 255, 1);
+  --blue-400: rgba(84, 174, 255, 1);
+  --blue-500: rgba(33, 139, 255, 1);
+  --blue-600: rgba(9, 105, 218, 1);
+  --blue-700: rgba(5, 80, 174, 1);
+  --blue-800: rgba(3, 61, 139, 1);
+  --blue-900: rgba(10, 48, 105, 1);
+  --blue-1000: rgba(0, 33, 85, 1);
+  --orange-100: rgba(254, 241, 230, 1);
+  --orange-200: rgba(255, 216, 181, 1);
+  --orange-300: rgba(255, 183, 124, 1);
+  --orange-400: rgba(251, 143, 68, 1);
+  --orange-500: rgba(225, 111, 36, 1);
+  --orange-600: rgba(188, 76, 0, 1);
+  --orange-700: rgba(149, 56, 0, 1);
+  --orange-800: rgba(118, 44, 0, 1);
+  --orange-900: rgba(92, 34, 0, 1);
+  --orange-1000: rgba(71, 23, 0, 1);
+  --red-100: rgba(254, 242, 240, 1);
+  --red-200: rgba(255, 206, 203, 1);
+  --red-300: rgba(255, 171, 168, 1);
+  --red-400: rgba(255, 129, 130, 1);
+  --red-500: rgba(250, 69, 73, 1);
+  --red-600: rgba(207, 34, 46, 1);
+  --red-700: rgba(164, 14, 38, 1);
+  --red-800: rgba(130, 7, 30, 1);
+  --red-900: rgba(102, 0, 24, 1);
+  --red-1000: rgba(44, 16, 23, 1);
+}
+/* Color */
+:root {
+  /* Light */
+  /* color */
+  --background-gray-default: var(--gray-white);
+  --background-gray-default-hover: var(--gray-50);
+  --background-gray-default-disabled: var(--gray-50);
+  --background-gray-default-pressed: var(--gray-100);
+  --background-gray-secondary: var(--gray-50);
+  --background-gray-secondary-hover: var(--gray-200);
+  --background-gray-secondary-pressed: var(--gray-100);
+  --background-gray-tertiary: var(--gray-100);
+  --text-gray-default: var(--gray-black);
+  --text-gray-default-disabled: var(--gray-300);
+  --text-gray-secondary: var(--gray-500);
+  --border-gray-default: var(--gray-100);
+  --border-gray-secondary: var(--gray-400);
+  --border-gray-tertiary: var(--gray-900);
+  --background-primary-default: var(--primary-900);
+  --background-success-default: var(--green-100);
+  --background-primary-default-hover: var(--primary-700);
+  --background-primary-default-pressed: var(--primary-800);
+  --background-primary-secondary: var(--primary-50);
+  --background-primary-secondary-hover: var(--primary-300);
+  --background-primary-secondary-pressed: var(--primary-100);
+  --background-primary-tertiary: var(--primary-200);
+  --background-primary-tertiary-hover: var(--primary-400);
+  --background-primary-tertiary-pressed: var(--primary-300);
+  --text-primary-default: var(--primary-900);
+  --text-primary-secondary: var(--primary-600);
+  --text-primary-tertiary: var(--primary-400);
+  --text-primary-on-primary: var(--gray-white);
+  --border-primary-default: var(--primary-900);
+  --border-primary-default-hovered: var(--primary-700);
+  --border-primary-default-pressed: var(--primary-800);
+  --icons-gray-default: var(--gray-black);
+  --icons-gray-default-disabled: var(--gray-300);
+  --icons-primary-default: var(--primary-900);
+  --icons-primary-secondary: var(--primary-600);
+  --icons-primary-tertiary: var(--primary-400);
+  --icons-primary-on-primary: var(--primary-50);
+  --icons-gray-secondary: var(--gray-500);
+  --icons-gray-secondary-disabled: var(--gray-300);
+  --border-success-default: var(--green-800);
+  --border-info-default: var(--blue-800);
+  --border-error-default: var(--red-800);
+  --text-success-default: var(--green-600);
+  --text-info-default: var(--blue-600);
+  --text-warning-default: var(--orange-600);
+  --text-error-default: var(--red-600);
+  --text-error-disabled: var(--red-400);
+  --background-info-default: var(--blue-100);
+  --background-warning-default: var(--orange-100);
+  --background-error-default: var(--red-700);
+  --background-error-default-hovered: var(--red-900);
+  --background-error-default-pressed: var(--red-800);
+  --background-error-secondary: var(--red-100);
+  --icons-success-default: var(--green-600);
+  --icons-info-default: var(--blue-600);
+  --icons-error-default: var(--red-600);
+  --icons-error-disabled: var(--red-400);
 }
 
 /* @custom-variant dark (&:is(.dark *)); */

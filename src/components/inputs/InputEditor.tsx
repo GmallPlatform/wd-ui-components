@@ -1,19 +1,19 @@
 import { Control, useController } from "react-hook-form";
 import InputLabel from "./InputLabel";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import InputHTMLEditor from "./InputHTMLEditor";
+import findInputError from "./utils";
 
 export const InputEditor = ({
   name,
   label,
-
   placeholder,
   disabled,
   required,
   control,
   size = "md",
   currentItem,
-  requiredText,
+  formState,
 }: {
   name: string;
   label?: string;
@@ -26,18 +26,23 @@ export const InputEditor = ({
   control: Control<any>;
   size?: "sm" | "md";
   currentItem: any;
-  requiredText?: string;
+  formState: any;
 }) => {
-  const { field: controlledField, fieldState } = useController({
+  const { errors } = formState;
+  const inputErrors = findInputError(errors, name);
+  const isInvalid = Object.keys(inputErrors).length > 0;
+
+  const { field: controlledField } = useController({
     name: name,
     control,
     defaultValue: currentItem[name] || "", // Устанавливаем начальное значение
-    rules: {
-      required: required ? requiredText : false, // Добавляем валидацию
-    },
   });
   const [isFocused, setIsFocused] = useState(false);
   const [isHovered, setIsHovered] = useState(false);
+  const [initContent, seInitContent] = useState("");
+  useEffect(() => {
+    seInitContent(`<p>${currentItem[name]}</p>`);
+  }, [currentItem, name]);
 
   return (
     <div
@@ -58,22 +63,26 @@ export const InputEditor = ({
             required: required,
             isFocused,
             isHovered,
-            isInvalid: Boolean(fieldState.error),
+            isInvalid: isInvalid,
           }}
         />
       )}
 
       <InputHTMLEditor
         key={`${name}-${currentItem.id || "new"}`}
-        initialContent={currentItem[name] || ""}
-        onContentChange={(content) => controlledField.onChange(content)} // Передаем изменение значения в react-hook-form
+        initialContent={initContent}
+        onContentChange={(content) => controlledField.onChange(content)}
         readOnly={disabled}
         onFocusChange={(focused) => setIsFocused(focused)}
         onHoverChange={(hovered) => setIsHovered(hovered)}
         placeholder={placeholder}
+        isInvalid={isInvalid}
       />
-      {fieldState.error && (
-        <span className="error-text">{fieldState.error.message}</span>
+
+      {isInvalid && (
+        <span className="text-red-600 text-[12px] font-medium leading-[1.15] font-sans">
+          {inputErrors?.error?.message}
+        </span>
       )}
     </div>
   );

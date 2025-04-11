@@ -1,5 +1,14 @@
 import * as Yup from "yup";
 import { IEditField } from "../types/fields";
+function hasRealTextContent(htmlString: string) {
+  if (!htmlString) return false;
+
+  // Удаляем все HTML-теги
+  const textOnly = htmlString.replace(/<[^>]*>/g, "");
+
+  // Проверяем, остался ли какой-то текст после удаления тегов и пробелов
+  return textOnly.trim().length > 0;
+}
 export const createSchema = (allFields: IEditField[]) => {
   return allFields.reduce<Record<string, Yup.AnySchema>>((schema, field) => {
     const t = field.type === "multipleSelect" ? "array" : field.type;
@@ -30,6 +39,15 @@ export const createSchema = (allFields: IEditField[]) => {
           // Apply password validation
           validator = (validator as Yup.StringSchema)
             .min(8, "Password must be at least 8 characters")
+            .required(message);
+          break;
+        case "textareaEditor":
+          // Специальная валидация для HTML-редактора
+          validator = (validator as Yup.StringSchema)
+            .test("required", message, (value) => {
+              console.log(value, "value");
+              return hasRealTextContent(value as string);
+            })
             .required(message);
           break;
         default:

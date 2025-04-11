@@ -172,11 +172,10 @@ export const InputSelect = ({
                 borderRadius: 6,
                 colors: {
                   ...theme.colors,
-                  primary: "#75649d",
-                  primary25: "#d0cee4",
-                  // primary50: "#52466c",
-                  neutral20: "#d1d5db",
-                  neutral30: "#9ca3af",
+                  primary: "var(--primary-700)", // #75649d
+                  primary25: "var(--primary-200)", // #d0cee4
+                  neutral20: "var(--gray-200)", // #d1d5db
+                  neutral30: "var(--gray-400)", // #9ca3af
                 },
               })}
             />

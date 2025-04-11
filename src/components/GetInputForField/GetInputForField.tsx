@@ -21,6 +21,7 @@ const GetInputForField = ({
     <>
       {field.type === "textareaEditor" ? (
         <InputEditor
+          formState={formState}
           {...field}
           control={control}
           disabled={Boolean(currentItem.id && field.forEditPageDisabled)}
