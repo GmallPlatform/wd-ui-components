@@ -11,6 +11,7 @@ export type { IEditField } from "./types/fields";
 export { createSchema } from "./utils/createSchema";
 export { getItemForEdit } from "./utils/getItemForEdit";
 export { getFieldsWithProjectSettings } from "./utils/getFieldsWithProjectSettings";
+export { default as EntityForm } from "./components/formComponent/FormComponent";
 
 export {
   Button,
