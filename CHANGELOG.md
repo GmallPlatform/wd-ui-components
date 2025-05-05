@@ -1,3 +1,10 @@
+## [1.0.12](https://github.com/GmallPlatform/wd-ui-components/compare/v1.0.11...v1.0.12) (2025-05-05)
+
+
+### Bug Fixes
+
+* add new api exposed ([f6a52ab](https://github.com/GmallPlatform/wd-ui-components/commit/f6a52abf4fb3bcc7bc2f5dbadb9a2b1b5ccf5a29))
+
 ## [1.0.11](https://github.com/GmallPlatform/wd-ui-components/compare/v1.0.10...v1.0.11) (2025-04-11)
 
 
