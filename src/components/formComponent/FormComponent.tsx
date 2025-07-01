@@ -1,4 +1,10 @@
-import React, { forwardRef, useImperativeHandle, useRef } from "react";
+import React, {
+  forwardRef,
+  useCallback,
+  useImperativeHandle,
+  useRef,
+  useState,
+} from "react";
 import { FormProvider, useForm } from "react-hook-form";
 import * as Yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
@@ -20,13 +26,31 @@ interface FormProps {
   currentItem: IItem;
   mode?: "onSubmit" | "onTouched";
   onSubmit: (data: any) => Promise<void>;
+  autosave?: boolean;
+  savingText?: string; // <-- ❗️ делаем опциональным
+  savedText?: string; // <-- ❗️ делаем опциональным
 }
 export interface EntityFormRef {
   submit: () => void;
 }
 
 const FormWithFieldsCompnent = forwardRef<EntityFormRef, FormProps>(
-  ({ fields, currentItem, onSubmit, mode = "onSubmit" }, ref) => {
+  (
+    {
+      fields,
+      currentItem,
+      onSubmit,
+      mode = "onSubmit",
+      autosave,
+      savingText,
+      savedText,
+    },
+    ref,
+  ) => {
+    const [saveStatus, setSaveStatus] = useState<"idle" | "saving" | "saved">(
+      "idle",
+    );
+
     const resolverSchema = useMemo(
       () => Yup.object().shape(createSchema(fields)),
       [fields],
@@ -82,27 +106,35 @@ const FormWithFieldsCompnent = forwardRef<EntityFormRef, FormProps>(
       resolver: yupResolver(resolverSchema),
       defaultValues,
     });
+    const watchAllFields = methods.watch();
+    const handleSubmitInner = useCallback(
+      async (data: any) => {
+        console.log(data, "data");
+        setSaveStatus("saving");
+        let cleanData = removeNoneOptions(data, fields);
 
-    const handleSubmitInner = async (data: any) => {
-      console.log(data, "data");
-      let cleanData = removeNoneOptions(data, fields);
+        fields.forEach((field) => {
+          if (field.multiLanguage && field.defaultFieldName) {
+            if (!cleanData[field.defaultFieldName]) {
+              cleanData[field.defaultFieldName] = [];
+            }
 
-      fields.forEach((field) => {
-        if (field.multiLanguage && field.defaultFieldName) {
-          if (!cleanData[field.defaultFieldName]) {
-            cleanData[field.defaultFieldName] = [];
+            cleanData[field.defaultFieldName].push({
+              lang: field.langCode,
+              value: cleanData[field.name],
+            });
+            delete cleanData[field.name];
           }
+        });
 
-          cleanData[field.defaultFieldName].push({
-            lang: field.langCode,
-            value: cleanData[field.name],
-          });
-          delete cleanData[field.name];
-        }
-      });
-
-      await onSubmit(cleanData);
-    };
+        await onSubmit(cleanData);
+        setSaveStatus("saved");
+        setTimeout(() => {
+          setSaveStatus("idle");
+        }, 1000);
+      },
+      [fields, onSubmit],
+    );
 
     const previousItem = useRef(currentItem);
 
@@ -122,6 +154,16 @@ const FormWithFieldsCompnent = forwardRef<EntityFormRef, FormProps>(
         methods.handleSubmit(handleSubmitInner)(); // ✅
       },
     }));
+
+    useEffect(() => {
+      if (!autosave) return undefined;
+
+      const timeoutId = setTimeout(() => {
+        methods.handleSubmit(handleSubmitInner)();
+      }, 700);
+
+      return () => clearTimeout(timeoutId);
+    }, [watchAllFields, autosave, methods, handleSubmitInner]);
     return (
       <>
         <FormProvider {...methods}>
@@ -131,6 +173,12 @@ const FormWithFieldsCompnent = forwardRef<EntityFormRef, FormProps>(
             autoComplete="off"
             className="flex flex-col items-start gap-8 w-full"
           >
+            {autosave && (
+              <div className="absolute top-0 right-0 text-xs text-gray-500 px-2 py-1">
+                {saveStatus === "saving" && savingText}
+                {saveStatus === "saved" && savedText}
+              </div>
+            )}
             {fieldsForDisplay.map(
               (field: IEditField[] | IEditField, index: number) => (
                 <React.Fragment key={index}>
