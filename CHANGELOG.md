@@ -1,3 +1,10 @@
+## [1.0.14](https://github.com/GmallPlatform/wd-ui-components/compare/v1.0.13...v1.0.14) (2025-07-01)
+
+
+### Bug Fixes
+
+* **api:** fix bug with save loop ([425b0dd](https://github.com/GmallPlatform/wd-ui-components/commit/425b0ddaa0d988302e59dd250d11275ff79e5f43))
+
 ## [1.0.13](https://github.com/GmallPlatform/wd-ui-components/compare/v1.0.12...v1.0.13) (2025-07-01)
 
 
