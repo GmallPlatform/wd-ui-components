@@ -1,3 +1,10 @@
+## [1.0.13](https://github.com/GmallPlatform/wd-ui-components/compare/v1.0.12...v1.0.13) (2025-07-01)
+
+
+### Bug Fixes
+
+* **api:** add new api for form component ([afe0fdd](https://github.com/GmallPlatform/wd-ui-components/commit/afe0fdd9b8e50a2ee8211922e24dec8ec6757b3d))
+
 ## [1.0.12](https://github.com/GmallPlatform/wd-ui-components/compare/v1.0.11...v1.0.12) (2025-05-05)
 
 
