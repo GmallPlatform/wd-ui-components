@@ -4,15 +4,15 @@ import React, {
   useImperativeHandle,
   useRef,
   useState,
+  useEffect,
+  useMemo,
 } from "react";
 import { FormProvider, useForm } from "react-hook-form";
 import * as Yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
-import { useEffect, useMemo } from "react";
 import { createSchema } from "../../utils/createSchema";
 import { removeNoneOptions } from "../../utils/removeNoneOptions";
 import GetInputForField from "../GetInputForField/GetInputForField";
-
 import { IEditField } from "../../types/fields";
 
 interface IItem {
@@ -27,8 +27,8 @@ interface FormProps {
   mode?: "onSubmit" | "onTouched";
   onSubmit: (data: any) => Promise<void>;
   autosave?: boolean;
-  savingText?: string; // <-- ❗️ делаем опциональным
-  savedText?: string; // <-- ❗️ делаем опциональным
+  savingText?: string;
+  savedText?: string;
 }
 export interface EntityFormRef {
   submit: () => void;
@@ -42,8 +42,8 @@ const FormWithFieldsCompnent = forwardRef<EntityFormRef, FormProps>(
       onSubmit,
       mode = "onSubmit",
       autosave,
-      savingText,
-      savedText,
+      savingText = "Сохраняется...",
+      savedText = "Сохранено",
     },
     ref,
   ) => {
@@ -55,58 +55,46 @@ const FormWithFieldsCompnent = forwardRef<EntityFormRef, FormProps>(
       () => Yup.object().shape(createSchema(fields)),
       [fields],
     );
-    const fieldsForDisplay = [];
 
-    for (let i = 0; i < fields.length; i++) {
-      if (fields[i].width === "50%") {
-        fieldsForDisplay.push([fields[i], fields[i + 1]]);
-        i++;
-      } else {
-        fieldsForDisplay.push(fields[i]);
-      }
-    }
+    const methods = useForm({
+      mode,
+      resolver: yupResolver(resolverSchema),
+      defaultValues: {}, // временно пустой, будет обновлён через reset
+    });
 
-    // Ensure all fields have default values
-    const defaultValues = useMemo(() => {
+    const previousDataRef = useRef<any>({});
+    const previousItem = useRef<IItem | null>(null);
+    const timeoutRef = useRef<NodeJS.Timeout | null>(null);
+
+    const syncFormWithItem = useCallback(() => {
+      previousItem.current = currentItem;
+
       const values = { ...currentItem };
-
-      // Make sure all fields have defined values
       fields.forEach((field) => {
         if (values[field.name] === undefined) {
-          if (field.type === "number") {
-            values[field.name] = 0;
-          } else if (field.type === "boolean" || field.type === "switch") {
+          if (field.type === "number") values[field.name] = 0;
+          else if (field.type === "boolean" || field.type === "switch")
             values[field.name] = false;
-          } else if (field.type === "select") {
-            values[field.name] = "none";
-          } else if (
-            field.type === "radio" &&
-            field.options &&
-            field.options.length > 0
-          ) {
+          else if (field.type === "select") values[field.name] = "none";
+          else if (field.type === "radio" && field.options?.length)
             values[field.name] = field.options[0].value;
-          } else if (
-            field.type === "array" ||
-            field.type === "multipleSelect"
-          ) {
+          else if (field.type === "array" || field.type === "multipleSelect")
             values[field.name] = [];
-          } else if (field.type === "date") {
-            values[field.name] = new Date();
-          } else {
-            values[field.name] = "";
-          }
+          else if (field.type === "date") values[field.name] = new Date();
+          else values[field.name] = "";
         }
       });
 
-      return values;
-    }, [fields, currentItem]);
+      methods.reset(values);
+      previousDataRef.current = values;
+    }, [currentItem, fields, methods]);
 
-    const methods = useForm({
-      mode: mode,
-      resolver: yupResolver(resolverSchema),
-      defaultValues,
-    });
-    const watchAllFields = methods.watch();
+    useEffect(() => {
+      if (previousItem.current !== currentItem) {
+        syncFormWithItem();
+      }
+    }, [currentItem, syncFormWithItem]);
+
     const handleSubmitInner = useCallback(
       async (data: any) => {
         console.log(data, "data");
@@ -129,6 +117,8 @@ const FormWithFieldsCompnent = forwardRef<EntityFormRef, FormProps>(
 
         await onSubmit(cleanData);
         setSaveStatus("saved");
+        previousDataRef.current = data;
+
         setTimeout(() => {
           setSaveStatus("idle");
         }, 1000);
@@ -136,83 +126,97 @@ const FormWithFieldsCompnent = forwardRef<EntityFormRef, FormProps>(
       [fields, onSubmit],
     );
 
-    const previousItem = useRef(currentItem);
-
-    useEffect(() => {
-      if (previousItem.current !== currentItem) {
-        previousItem.current = currentItem;
-
-        methods.reset(currentItem);
-      }
-    }, [currentItem, methods]);
-
-    // Экспонируем submit наружу
     useImperativeHandle(ref, () => ({
       submit: () => {
-        console.log("calling submit");
-        console.log("errors", methods.formState.errors); // <- это покажет, есть ли ошибки
-        methods.handleSubmit(handleSubmitInner)(); // ✅
+        methods.handleSubmit(handleSubmitInner)();
       },
     }));
 
     useEffect(() => {
       if (!autosave) return undefined;
 
-      const timeoutId = setTimeout(() => {
-        methods.handleSubmit(handleSubmitInner)();
-      }, 700);
+      const subscription = methods.watch(() => {
+        if (timeoutRef.current) clearTimeout(timeoutRef.current);
 
-      return () => clearTimeout(timeoutId);
-    }, [watchAllFields, autosave, methods, handleSubmitInner]);
+        timeoutRef.current = setTimeout(() => {
+          const currentData = methods.getValues();
+          const previousData = previousDataRef.current;
+
+          const hasChanges =
+            JSON.stringify(currentData) !== JSON.stringify(previousData);
+
+          if (hasChanges) {
+            methods.handleSubmit(handleSubmitInner)();
+          }
+        }, 700);
+      });
+
+      return () => {
+        subscription.unsubscribe?.();
+        if (timeoutRef.current) clearTimeout(timeoutRef.current);
+      };
+    }, [autosave, methods, handleSubmitInner]);
+
+    const fieldsForDisplay = useMemo(() => {
+      const out: (IEditField | IEditField[])[] = [];
+
+      for (let i = 0; i < fields.length; i++) {
+        if (fields[i].width === "50%") {
+          out.push([fields[i], fields[i + 1]]);
+          i++;
+        } else {
+          out.push(fields[i]);
+        }
+      }
+      return out;
+    }, [fields]);
+
     return (
-      <>
-        <FormProvider {...methods}>
-          <form
-            onSubmit={(e) => e.preventDefault()}
-            noValidate
-            autoComplete="off"
-            className="flex flex-col items-start gap-8 w-full"
-          >
-            {autosave && (
-              <div className="absolute top-0 right-0 text-xs text-gray-500 px-2 py-1">
-                {saveStatus === "saving" && savingText}
-                {saveStatus === "saved" && savedText}
-              </div>
-            )}
-            {fieldsForDisplay.map(
-              (field: IEditField[] | IEditField, index: number) => (
-                <React.Fragment key={index}>
-                  {Array.isArray(field) ? (
-                    <div className="flex items-start gap-4 rounded w-full">
-                      {field.map((f: IEditField) => (
-                        <GetInputForField
-                          key={f.name}
-                          currentItem={currentItem}
-                          field={f}
-                          control={methods.control}
-                          formState={methods.formState}
-                        />
-                      ))}
-                    </div>
-                  ) : (
-                    <div className="flex items-start gap-4 rounded w-full">
-                      <GetInputForField
-                        key={field.name}
-                        currentItem={currentItem}
-                        field={field}
-                        control={methods.control}
-                        formState={methods.formState}
-                      />
-                    </div>
-                  )}
-                </React.Fragment>
-              ),
-            )}
-          </form>
-        </FormProvider>
-      </>
+      <FormProvider {...methods}>
+        <form
+          onSubmit={(e) => e.preventDefault()}
+          noValidate
+          autoComplete="off"
+          className="flex flex-col items-start gap-8 w-full"
+        >
+          {autosave && (
+            <div className="absolute top-0 right-0 text-xs text-gray-500 px-2 py-1">
+              {saveStatus === "saving" && savingText}
+              {saveStatus === "saved" && savedText}
+            </div>
+          )}
+          {fieldsForDisplay.map((field, index) => (
+            <React.Fragment key={index}>
+              {Array.isArray(field) ? (
+                <div className="flex items-start gap-4 w-full">
+                  {field.map((f) => (
+                    <GetInputForField
+                      key={f.name}
+                      currentItem={currentItem}
+                      field={f}
+                      control={methods.control}
+                      formState={methods.formState}
+                    />
+                  ))}
+                </div>
+              ) : (
+                <div className="flex items-start gap-4 w-full">
+                  <GetInputForField
+                    key={field.name}
+                    currentItem={currentItem}
+                    field={field}
+                    control={methods.control}
+                    formState={methods.formState}
+                  />
+                </div>
+              )}
+            </React.Fragment>
+          ))}
+        </form>
+      </FormProvider>
     );
   },
 );
+
 FormWithFieldsCompnent.displayName = "FormWithFieldsCompnent";
 export default FormWithFieldsCompnent;
