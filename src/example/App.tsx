@@ -163,6 +163,7 @@ export const App: React.FC = () => {
             fields={allFieldsWithLangs}
             currentItem={item}
             onSubmit={handleSubmit}
+            autosave={true}
           />
           {filesFields.map((field) => {
             return (

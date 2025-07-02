@@ -98,7 +98,7 @@ const FormWithFieldsCompnent = forwardRef<EntityFormRef, FormProps>(
     const handleSubmitInner = useCallback(
       async (data: any) => {
         console.log(data, "data");
-        setSaveStatus("saving");
+
         let cleanData = removeNoneOptions(data, fields);
 
         fields.forEach((field) => {
@@ -116,14 +116,26 @@ const FormWithFieldsCompnent = forwardRef<EntityFormRef, FormProps>(
         });
 
         await onSubmit(cleanData);
-        setSaveStatus("saved");
         previousDataRef.current = data;
-
-        setTimeout(() => {
-          setSaveStatus("idle");
-        }, 1000);
       },
       [fields, onSubmit],
+    );
+
+    const handleAutosaveFieldChange = useCallback(
+      async (name: string, value: any) => {
+        if (!currentItem?.id) return;
+        setSaveStatus("saving");
+
+        const updatedField = { [name]: value, id: currentItem.id };
+
+        await onSubmit(updatedField);
+
+        previousDataRef.current[name] = value;
+        setSaveStatus("saved");
+
+        setTimeout(() => setSaveStatus("idle"), 1000);
+      },
+      [currentItem?.id, onSubmit],
     );
 
     useImperativeHandle(ref, () => ({
@@ -133,29 +145,28 @@ const FormWithFieldsCompnent = forwardRef<EntityFormRef, FormProps>(
     }));
 
     useEffect(() => {
-      if (!autosave) return undefined;
+      if (!autosave) return;
 
-      const subscription = methods.watch(() => {
-        if (timeoutRef.current) clearTimeout(timeoutRef.current);
+      const subscription = methods.watch((value, { name }) => {
+        if (!name) return;
 
-        timeoutRef.current = setTimeout(() => {
-          const currentData = methods.getValues();
-          const previousData = previousDataRef.current;
+        const newValue = value[name];
+        const oldValue = previousDataRef.current?.[name];
 
-          const hasChanges =
-            JSON.stringify(currentData) !== JSON.stringify(previousData);
+        if (JSON.stringify(newValue) !== JSON.stringify(oldValue)) {
+          if (timeoutRef.current) clearTimeout(timeoutRef.current);
 
-          if (hasChanges) {
-            methods.handleSubmit(handleSubmitInner)();
-          }
-        }, 700);
+          timeoutRef.current = setTimeout(() => {
+            handleAutosaveFieldChange(name, newValue);
+          }, 700);
+        }
       });
 
       return () => {
         subscription.unsubscribe?.();
         if (timeoutRef.current) clearTimeout(timeoutRef.current);
       };
-    }, [autosave, methods, handleSubmitInner]);
+    }, [autosave, methods, handleAutosaveFieldChange]);
 
     const fieldsForDisplay = useMemo(() => {
       const out: (IEditField | IEditField[])[] = [];
