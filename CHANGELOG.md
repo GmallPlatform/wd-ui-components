@@ -1,3 +1,11 @@
+## [1.0.15](https://github.com/GmallPlatform/wd-ui-components/compare/v1.0.14...v1.0.15) (2025-07-02)
+
+
+### Bug Fixes
+
+* **api:** add new foo for autosaving ([0837b7b](https://github.com/GmallPlatform/wd-ui-components/commit/0837b7b9090a83e3d54f371303158703c82a656b))
+* **api:** add new foo for autosaving ([f95b5de](https://github.com/GmallPlatform/wd-ui-components/commit/f95b5dea655a637d94fa36f13e79824514164041))
+
 ## [1.0.14](https://github.com/GmallPlatform/wd-ui-components/compare/v1.0.13...v1.0.14) (2025-07-01)
 
 
