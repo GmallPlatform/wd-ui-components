@@ -145,7 +145,7 @@ const FormWithFieldsCompnent = forwardRef<EntityFormRef, FormProps>(
     }));
 
     useEffect(() => {
-      if (!autosave) return;
+      if (!autosave) return undefined;
 
       const subscription = methods.watch((value, { name }) => {
         if (!name) return;
