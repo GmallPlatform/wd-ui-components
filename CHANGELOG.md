@@ -1,3 +1,10 @@
+## [1.0.16](https://github.com/GmallPlatform/wd-ui-components/compare/v1.0.15...v1.0.16) (2025-07-02)
+
+
+### Bug Fixes
+
+* **npm:** add new version editor ([adb7dfe](https://github.com/GmallPlatform/wd-ui-components/commit/adb7dfed3e2cec88652c3a608c8f9e398c2b9384))
+
 ## [1.0.15](https://github.com/GmallPlatform/wd-ui-components/compare/v1.0.14...v1.0.15) (2025-07-02)
 
 
