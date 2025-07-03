@@ -1,3 +1,10 @@
+## [1.0.18](https://github.com/GmallPlatform/wd-ui-components/compare/v1.0.17...v1.0.18) (2025-07-03)
+
+
+### Bug Fixes
+
+* change pagechege for editor ([7d99940](https://github.com/GmallPlatform/wd-ui-components/commit/7d9994054e9e08d37836d5e02913320e30894a53))
+
 ## [1.0.17](https://github.com/GmallPlatform/wd-ui-components/compare/v1.0.16...v1.0.17) (2025-07-02)
 
 
