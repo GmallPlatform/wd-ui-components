@@ -1,5 +1,5 @@
 import "./App.css";
-import { useRef } from "react";
+import { useMemo, useRef } from "react";
 import "../styles/globals.css";
 import {
   currentItem,
@@ -90,7 +90,10 @@ export const App: React.FC = () => {
     return field;
   });
 
-  const item = getItemForEdit(initFields2, currentItem, settings);
+  const item = useMemo(
+    () => getItemForEdit(initFields2, currentItem, settings),
+    [currentItem],
+  );
   const itemsService = {
     getItems: () => Promise.resolve([]),
     createItem: () => Promise.resolve({}),
@@ -136,6 +139,8 @@ export const App: React.FC = () => {
   //     });
   //   }, 2000);
   // }, []);
+  console.log(currentItem, "currentItem");
+  console.log(item);
 
   return (
     <>
@@ -158,13 +163,15 @@ export const App: React.FC = () => {
             </PrimaryButton>
           </div>
 
-          <EntityForm
-            ref={formRef}
-            fields={allFieldsWithLangs}
-            currentItem={item}
-            onSubmit={handleSubmit}
-            autosave={true}
-          />
+          {item && (
+            <EntityForm
+              ref={formRef}
+              fields={allFieldsWithLangs}
+              currentItem={item}
+              onSubmit={handleSubmit}
+              autosave={true}
+            />
+          )}
           {filesFields.map((field) => {
             return (
               <React.Fragment key={field.name}>

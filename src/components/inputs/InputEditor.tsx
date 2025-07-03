@@ -41,7 +41,7 @@ export const InputEditor = ({
   const [isHovered, setIsHovered] = useState(false);
   const [initContent, seInitContent] = useState("");
   useEffect(() => {
-    seInitContent(`<p>${currentItem[name]}</p>`);
+    seInitContent(`${currentItem[name]}`);
   }, [currentItem, name]);
 
   return (
