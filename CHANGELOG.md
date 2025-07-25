@@ -1,3 +1,10 @@
+## [1.0.20](https://github.com/GmallPlatform/wd-ui-components/compare/v1.0.19...v1.0.20) (2025-07-25)
+
+
+### Bug Fixes
+
+* added debug console ([4db41fb](https://github.com/GmallPlatform/wd-ui-components/commit/4db41fbc1e69ede976650724ee9bb4514993a0f9))
+
 ## [1.0.19](https://github.com/GmallPlatform/wd-ui-components/compare/v1.0.18...v1.0.19) (2025-07-25)
 
 
