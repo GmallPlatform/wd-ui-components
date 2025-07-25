@@ -181,6 +181,8 @@ const FormWithFieldsCompnent = forwardRef<EntityFormRef, FormProps>(
       }
       return out;
     }, [fields]);
+    console.log(fieldsForDisplay, "fieldsForDisplay");
+    console.log(currentItem, "currentItem");
 
     return (
       <FormProvider {...methods}>

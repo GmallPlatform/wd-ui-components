@@ -46,7 +46,6 @@ export const InputEditor = ({
 
   return (
     <div
-      className="textarea-editor-container"
       style={{
         display: "flex",
         flexDirection: "column",

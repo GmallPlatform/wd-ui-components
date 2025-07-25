@@ -139,8 +139,8 @@ export const App: React.FC = () => {
   //     });
   //   }, 2000);
   // }, []);
-  console.log(currentItem, "currentItem");
-  console.log(item);
+  // console.log(currentItem, "currentItem");
+  // console.log(item);
 
   return (
     <>

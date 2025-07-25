@@ -115,4 +115,16 @@ export interface IEditField {
 
   /** Whether to show search input */
   isSearchable?: boolean;
+
+  dbType: DbType;
+}
+export enum DbType {
+  VARCHAR = "varchar",
+  FLOAT = "float",
+  BOOLEAN = "boolean",
+  TIMESTAMPTZ = "timestamptz",
+  MANY_TO_ONE = "manyToOne",
+  ONE_TO_MANY = "oneToMany",
+  MANY_TO_MANY = "manyToMany",
+  ONE_TO_ONE = "oneToOne",
 }
