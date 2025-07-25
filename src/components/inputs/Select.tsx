@@ -90,7 +90,7 @@ export const InputSelect = ({
           return (
             <Select
               options={reactSelectOptions}
-              defaultValue={selectedOptions || null}
+              value={selectedOptions || null}
               isMulti={isMulti}
               // value={selectedOption || null}
               onChange={(selected) =>

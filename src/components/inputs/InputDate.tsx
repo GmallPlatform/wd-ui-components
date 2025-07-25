@@ -3,6 +3,9 @@ import { Controller } from "react-hook-form";
 import DatePicker from "react-datepicker";
 import InputLabel from "./InputLabel";
 import "react-datepicker/dist/react-datepicker.css";
+//import "./InputDate.css";
+
+import findInputError from "./utils";
 
 const CustomTimeInput = ({
   value,
@@ -124,12 +127,3 @@ export const InputDate = ({
     </div>
   );
 };
-
-function findInputError(errors: any, name: string) {
-  const filtered: any = Object.keys(errors)
-    .filter((key) => key.includes(name))
-    .reduce((cur, key) => {
-      return Object.assign(cur, { error: errors[key] });
-    }, {});
-  return filtered;
-}

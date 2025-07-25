@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { Controller } from "react-hook-form";
 import CustomSwitch from "./CustomSwitch";
+import findInputError from "./utils";
 
 const isFormInvalid = (err: any) => {
   if (Object.keys(err).length > 0) return true;
@@ -55,7 +56,7 @@ export const InputSwitch = ({
             control={control}
             render={({ field }) => (
               <CustomSwitch
-                checked={field.value}
+                checked={Boolean(field.value)}
                 onChange={field.onChange}
                 name={field.name}
                 disabled={disabled}
@@ -83,12 +84,3 @@ export const InputSwitch = ({
     </div>
   );
 };
-
-function findInputError(errors: any, name: string) {
-  const filtered: any = Object.keys(errors)
-    .filter((key) => key.includes(name))
-    .reduce((cur, key) => {
-      return Object.assign(cur, { error: errors[key] });
-    }, {});
-  return filtered;
-}

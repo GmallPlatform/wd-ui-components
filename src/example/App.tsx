@@ -33,10 +33,10 @@ import ParangaForViewport from "@/components/parangaForViewport/ParangaForViewpo
 //import { IconButtonShowcase } from "@/components/ui/buttons/IconButtons";
 //import ButtonShowcase from "@/components/ui/buttons/Buttons";
 
-const initFields2 = initFields.filter(
-  (field: IEditField) =>
-    field.type !== "image" && field.type !== "file" && field.type !== "gallery",
-);
+// const initFields2 = initFields.filter(
+//   (field: IEditField) =>
+//     field.type !== "image" && field.type !== "file" && field.type !== "gallery",
+// );
 const filesFields = initFields.filter(
   (field: IEditField) =>
     field.type === "image" || field.type === "file" || field.type === "gallery",
@@ -63,10 +63,7 @@ export const App: React.FC = () => {
     services,
   };
 
-  const allFieldsWithLangs = getFieldsWithProjectSettings(
-    initFields2,
-    settings,
-  );
+  const allFieldsWithLangs = getFieldsWithProjectSettings(initFields, settings);
   allFieldsWithLangs.map((field) => {
     if (field.selectorSourceId && typedLists[field.selectorSourceId]) {
       const listKey = typedLists[field.selectorSourceId];
@@ -91,7 +88,7 @@ export const App: React.FC = () => {
   });
 
   const item = useMemo(
-    () => getItemForEdit(initFields2, currentItem, settings),
+    () => getItemForEdit(initFields, currentItem, settings),
     [currentItem],
   );
   const itemsService = {

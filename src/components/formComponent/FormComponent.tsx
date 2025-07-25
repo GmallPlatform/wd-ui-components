@@ -71,11 +71,11 @@ const FormWithFieldsCompnent = forwardRef<EntityFormRef, FormProps>(
 
       const values = { ...currentItem };
       fields.forEach((field) => {
-        if (values[field.name] === undefined) {
+        if (values[field.name] === undefined || values[field.name] === null) {
           if (field.type === "number") values[field.name] = 0;
           else if (field.type === "boolean" || field.type === "switch")
             values[field.name] = false;
-          else if (field.type === "select") values[field.name] = "none";
+          else if (field.type === "select") values[field.name] = null;
           else if (field.type === "radio" && field.options?.length)
             values[field.name] = field.options[0].value;
           else if (field.type === "array" || field.type === "multipleSelect")
@@ -181,8 +181,6 @@ const FormWithFieldsCompnent = forwardRef<EntityFormRef, FormProps>(
       }
       return out;
     }, [fields]);
-    console.log(fieldsForDisplay, "fieldsForDisplay");
-    console.log(currentItem, "currentItem");
 
     return (
       <FormProvider {...methods}>

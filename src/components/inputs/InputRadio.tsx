@@ -2,6 +2,8 @@ import { Controller } from "react-hook-form";
 import { useState } from "react";
 import InputLabel from "./InputLabel";
 
+import findInputError from "./utils";
+
 import { Icon_radio_input } from "./Icons";
 import { IOptionsForRadioAndSelect } from "../../types/fields";
 
@@ -120,12 +122,3 @@ export const InputRadio = ({
     </div>
   );
 };
-
-function findInputError(errors: any, name: string) {
-  const filtered: any = Object.keys(errors)
-    .filter((key) => key.includes(name))
-    .reduce((cur, key) => {
-      return Object.assign(cur, { error: errors[key] });
-    }, {});
-  return filtered;
-}
