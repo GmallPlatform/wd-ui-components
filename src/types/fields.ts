@@ -116,7 +116,7 @@ export interface IEditField {
   /** Whether to show search input */
   isSearchable?: boolean;
 
-  dbType: DbType;
+  dbType?: DbType;
 }
 export enum DbType {
   VARCHAR = "varchar",
