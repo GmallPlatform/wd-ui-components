@@ -1,3 +1,11 @@
+## [1.0.22](https://github.com/GmallPlatform/wd-ui-components/compare/v1.0.21...v1.0.22) (2025-10-16)
+
+
+### Bug Fixes
+
+* **release:** adapt semantic-release for OIDC (skip npm verifyConditions) ([d10082c](https://github.com/GmallPlatform/wd-ui-components/commit/d10082c56add1278f1d8b80cda05afb986c6f9c8))
+* **release:** publish via exec npm publish --provenance (OIDC) ([42edf30](https://github.com/GmallPlatform/wd-ui-components/commit/42edf306f492e45eb90c75862d13d84e8ec10298))
+
 ## [1.0.21](https://github.com/GmallPlatform/wd-ui-components/compare/v1.0.20...v1.0.21) (2025-10-16)
 
 
