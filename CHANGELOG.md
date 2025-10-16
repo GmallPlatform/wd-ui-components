@@ -1,3 +1,10 @@
+## [1.0.23](https://github.com/GmallPlatform/wd-ui-components/compare/v1.0.22...v1.0.23) (2025-10-16)
+
+
+### Bug Fixes
+
+* **release:** trigger patch publish via OIDC ([16c2b74](https://github.com/GmallPlatform/wd-ui-components/commit/16c2b743b59b76b31c2fa9bf67875cb5a162f15f))
+
 ## [1.0.22](https://github.com/GmallPlatform/wd-ui-components/compare/v1.0.21...v1.0.22) (2025-10-16)
 
 
