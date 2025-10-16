@@ -5,6 +5,10 @@ on:
     branches:
       - main
 
+permissions:
+  contents: read
+  id-token: write
+
 jobs:
   release:
     runs-on: ubuntu-latest
@@ -21,23 +25,10 @@ jobs:
           node-version: 20
           registry-url: "https://registry.npmjs.org/"
 
-      - name: Debug NPM Token
-        run: |
-          if [ -z "${{ secrets.NPM_TOKEN }}" ]; then
-            echo "❌ NPM_TOKEN is EMPTY or not available!"
-            exit 1
-          else
-            echo "✅ NPM_TOKEN is SET"
-          fi
-
-      - name: Authenticate with npm
-        run: |
-          echo "//registry.npmjs.org/:_authToken=${{ secrets.NPM_TOKEN }}" > ~/.npmrc
-
       - name: Install dependencies
         env:
           HUSKY: 0
-          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
+          NPM_CONFIG_PROVENANCE: "true"
         run: npm ci
 
       - name: Build package
@@ -46,5 +37,5 @@ jobs:
       - name: Release new version
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
+          NPM_CONFIG_PROVENANCE: "true"
         run: npx semantic-release
