@@ -1,14 +1,26 @@
 import { useEffect, useState } from "react";
 import { Icon_check_circle, Icon_close } from "./Icons";
 import Collapse from "../collapse/Collapse";
-export const Resultoutput = () => {
+export const Resultoutput = ({ channel }: { channel?: string }) => {
   const [error, setError] = useState("");
   const [success, setSuccess] = useState("");
   const handleSetError = (event: CustomEvent) => {
+    if (channel) {
+      const detail: any = event.detail;
+      if (!detail || detail.channel !== channel) return;
+      setError(detail.payload || "");
+      return;
+    }
     const data: string = event.detail || "";
     setError(data);
   };
   const handleSetSuccess = (event: CustomEvent) => {
+    if (channel) {
+      const detail: any = event.detail;
+      if (!detail || detail.channel !== channel) return;
+      setSuccess(detail.payload || "");
+      return;
+    }
     const data: string = event.detail || "";
     setSuccess(data);
   };

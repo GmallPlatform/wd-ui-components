@@ -1,19 +1,30 @@
-export function sendMessage(message: string, data?: any) {
+export function sendMessage(message: string, data?: any, channel?: string) {
+  const detail =
+    typeof channel === "string" && channel.length > 0
+      ? { payload: data, channel }
+      : data;
   const event = new CustomEvent(message, {
-    detail: data,
+    detail,
   });
   window.dispatchEvent(event);
 }
-export function setError(error: string) {
+export function setError(error: string, channel?: string) {
+  const detail =
+    typeof channel === "string" && channel.length > 0
+      ? { payload: error, channel }
+      : error;
   const event = new CustomEvent("setError", {
-    detail: error,
+    detail,
   });
   window.dispatchEvent(event);
 }
-export function setSuccess(success: string) {
-  //console.log(success);
+export function setSuccess(success: string, channel?: string) {
+  const detail =
+    typeof channel === "string" && channel.length > 0
+      ? { payload: success, channel }
+      : success;
   const event = new CustomEvent("setSuccess", {
-    detail: success,
+    detail,
   });
   window.dispatchEvent(event);
 }

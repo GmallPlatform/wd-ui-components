@@ -1,20 +1,36 @@
 import { useEffect, useState } from "react";
 import { Icon_loader } from "./Icons";
-export const ParangaForViewport = () => {
+export const ParangaForViewport = ({ channel }: { channel?: string }) => {
   const [dispalyElement, setDispalyElement] = useState(false);
-  const parangaSetDisplay = () => {
+  const parangaSetDisplay = (e?: Event) => {
+    if (channel) {
+      const ce = e as CustomEvent | undefined;
+      const detail: any = ce?.detail;
+      if (!detail || detail.channel !== channel) return;
+    }
     setDispalyElement(true);
   };
-  const parangaSetHide = () => {
+  const parangaSetHide = (e?: Event) => {
+    if (channel) {
+      const ce = e as CustomEvent | undefined;
+      const detail: any = ce?.detail;
+      if (!detail || detail.channel !== channel) return;
+    }
     setDispalyElement(false);
   };
   useEffect(() => {
-    window.addEventListener("hideParange", parangaSetHide);
-    window.addEventListener("showParange", parangaSetDisplay);
+    window.addEventListener("hideParange", parangaSetHide as EventListener);
+    window.addEventListener("showParange", parangaSetDisplay as EventListener);
 
     return () => {
-      window.removeEventListener("hideParange", parangaSetHide);
-      window.removeEventListener("showParange", parangaSetDisplay);
+      window.removeEventListener(
+        "hideParange",
+        parangaSetHide as EventListener,
+      );
+      window.removeEventListener(
+        "showParange",
+        parangaSetDisplay as EventListener,
+      );
     };
   }, []);
   return (

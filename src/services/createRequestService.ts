@@ -9,6 +9,7 @@ interface ServiceConfig {
   tokenField?: string;
   useRefreshToken?: boolean;
   defaultHeaders?: () => { [key: string]: string };
+  channel?: string;
 }
 
 interface IRequestParams {
@@ -41,6 +42,7 @@ function createRequestService({
   tokenField = "accessToken",
 
   defaultHeaders,
+  channel,
 }: ServiceConfig) {
   const handleError = (err: any) => {
     if (err.name === "AbortError") {
@@ -48,7 +50,7 @@ function createRequestService({
     }
 
     if (err?.statusCode === 401) {
-      sendMessage("unauthorized");
+      sendMessage("unauthorized", undefined, channel);
       return;
     }
 

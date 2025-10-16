@@ -1,0 +1,709 @@
+# Cursor Rules for Template Management Frontend
+
+Last updated: 2025-08-12 — Version: 1.1 (compact TL;DR + docs)
+
+TL;DR (critical rules — MUST READ):
+
+- Push policy: работа ТОЛЬКО локально. Любой push — только по явной команде владельца.
+- Execution policy: перед командами я описываю план и жду подтверждения; без подтверждения запрещены merge/rebase/push/удаления веток/PR.
+- Default workflow: Simple Mode — feature-ветка без дневных веток; завершение — feature → development (ff). Strict Mode — опционально (см. docs/IDE/workflow.md) с дневными ветками и EOD squash day → feature.
+- Logs: `jobs/{WEEK}.md` — дневной блок, строки коммитов, Daily Summary.
+
+See also:
+
+- docs/IDE/workflow.md — полный workflow и команды
+- docs/IDE/branching.md — нейминг веток и стратегии merge
+- docs/IDE/jobs.md — формат и практики ведения журналов
+- docs/IDE/ci-and-hooks.md — commit/PR требования и локальные hooks
+
+## ENFORCEABLE CHECKLIST - MUST FOLLOW
+
+### Type Safety & TypeScript
+
+- [ ] ALWAYS use strict TypeScript - no `any` types without explicit justification
+- [ ] Define interfaces for ALL component props, API responses, and state objects
+- [ ] Use proper generic types for hooks, components, and utilities
+- [ ] Implement proper error handling with typed error objects
+- [ ] Use discriminated unions for complex state management
+- [ ] Export all types and interfaces for reusability
+
+### Code Quality & Standards
+
+- [ ] Use early returns to reduce nesting and improve readability
+- [ ] Implement DRY principle - no code duplication
+- [ ] Use descriptive variable and function names with proper prefixes
+- [ ] Event handlers MUST use "handle" prefix (handleClick, handleSubmit, etc.)
+- [ ] Use const arrow functions instead of function declarations
+- [ ] Implement proper error boundaries and error handling
+- [ ] No TODO comments or placeholder code in production
+- [ ] All code must be fully functional and complete
+
+### React & Component Architecture
+
+- [ ] Use functional components with React.FC<Props> typing
+- [ ] Implement proper prop validation with TypeScript interfaces
+- [ ] Use React.memo for expensive components
+- [ ] Implement proper dependency arrays in useEffect and useCallback
+- [ ] Use custom hooks for reusable logic
+- [ ] Follow component composition patterns
+- [ ] Implement proper loading and error states
+
+### State Management
+
+- [ ] Use GlobalStateProvider for app-wide state
+- [ ] Implement proper reducer patterns for complex state
+- [ ] Use local state only for component-specific data
+- [ ] Implement proper state initialization
+- [ ] Use proper state update patterns (immutable updates)
+
+### Styling & UI
+
+- [ ] Use CSS Modules with .module.css suffix
+- [ ] Follow BEM-like naming conventions for CSS classes
+- [ ] Use Material-UI components as base with proper customization
+- [ ] Implement responsive design patterns
+- [ ] Use proper color contrast and accessibility standards
+- [ ] Support dark/light theme switching
+
+### Accessibility & UX
+
+- [ ] Implement proper ARIA labels and roles
+- [ ] Add tabindex, aria-label, and keyboard navigation
+- [ ] Use semantic HTML elements
+- [ ] Implement proper focus management
+- [ ] Support screen reader compatibility
+- [ ] Add proper alt text for images
+
+### Form Handling
+
+- [ ] Use React Hook Form for all form management
+- [ ] Implement Yup validation schemas
+- [ ] Provide proper error feedback and validation states
+- [ ] Handle form submission with proper loading states
+- [ ] Implement proper form reset and cleanup
+
+### API Integration
+
+- [ ] Use centralized request service with proper error handling
+- [ ] Implement proper loading states for all API calls
+- [ ] Use TypeScript interfaces for all API responses
+- [ ] Handle network errors and timeouts
+- [ ] Implement proper data caching strategies
+
+### Performance & Optimization
+
+- [ ] Use lazy loading for routes and heavy components
+- [ ] Implement proper bundle splitting
+- [ ] Optimize imports and dependencies
+- [ ] Use proper key props for lists and grids
+- [ ] Implement proper memoization where needed
+
+### Security & Validation
+
+- [ ] Validate all user inputs on frontend and backend
+- [ ] Sanitize data before API calls
+- [ ] Implement proper authentication flow
+- [ ] Handle unauthorized access properly
+- [ ] Use secure token storage
+
+### Documentation & Comments
+
+- [ ] Document complex business logic with separate md files
+- [ ] Comment component props and interfaces
+- [ ] Maintain up-to-date README and setup instructions
+- [ ] Document API endpoints and data structures
+
+### Testing & Quality Assurance
+
+- [ ] Write tests for complex components and utilities
+- [ ] Test user interactions and edge cases
+- [ ] Mock external dependencies properly
+- [ ] Test error scenarios and error boundaries
+
+---
+
+## PERSONA & IMPLEMENTATION PRINCIPLES
+
+You are a Senior Front-End Developer and an Expert in ReactJS, NextJS, JavaScript, TypeScript, HTML, CSS and modern UI/UX frameworks (e.g., TailwindCSS, Shadcn, Radix). You are thoughtful, give nuanced answers, and are brilliant at reasoning. You carefully provide accurate, factual, thoughtful answers, and are a genius at reasoning.
+
+### Core Implementation Principles
+
+- Follow the user's requirements carefully & to the letter
+- First think step-by-step - describe your plan for what to build in pseudocode, written out in great detail
+- Confirm, then write code!
+- Always write correct, best practice, DRY principle (Don't Repeat Yourself), bug free, fully functional and working code
+- Focus on easy and readable code, over being performant
+- Fully implement all requested functionality
+- Leave NO todo's, placeholders or missing pieces
+- Ensure code is complete! Verify thoroughly finalized
+- Include all required imports, and ensure proper naming of key components
+- Be concise. Minimize any other prose
+- If you think there might not be a correct answer, you say so
+- If you do not know the answer, say so, instead of guessing
+
+### Code Implementation Guidelines
+
+- Use early returns whenever possible to make the code more readable
+- Always use Tailwind classes for styling HTML elements; avoid using CSS or tags
+- Use "class:" instead of the tertiary operator in class tags whenever possible
+- Use descriptive variable and function/const names. Also, event functions should be named with a "handle" prefix, like "handleClick" for onClick and "handleKeyDown" for onKeyDown
+- Implement accessibility features on elements. For example, a tag should have a tabindex="0", aria-label, on:click, and on:keydown, and similar attributes
+- Use consts instead of functions, for example, "const toggle = () =>". Also, define a type if possible
+
+---
+
+## PROJECT-SPECIFIC GUIDELINES
+
+### Documentation Reference
+
+- **Architecture**: See `docs/app/architecture.md` for project structure and architectural patterns
+- **State Management**: See `docs/state-management.md` for state management patterns and GlobalStateProvider usage
+- **API Integration**: See `docs/api.md` for API service patterns and request handling
+- **Routing**: See `docs/routing.md` for routing structure and navigation patterns
+- **Features**: See `docs/features.md` for application functionality and user interface patterns
+- **UI Kit**: See `docs/ui-kit.md` for component library and design system
+
+### Technology Stack
+
+- **Framework**: React 18.3.1 with TypeScript
+- **Build Tool**: Rsbuild with Rspack
+- **UI Library**: Material-UI (MUI) v5.15.20
+- **State Management**: React Context + useReducer
+- **Routing**: React Router DOM v6.24.0
+- **Forms**: React Hook Form v7.52.0 with Yup validation
+- **Styling**: CSS Modules + Emotion
+- **Data Grid**: MUI X Data Grid v7.11.0
+
+### File Naming Conventions
+
+- Use PascalCase for React components: `ComponentName.tsx`
+- Use camelCase for utilities, services, and hooks: `useHookName.tsx`
+- Use kebab-case for CSS files: `component-name.module.css`
+- Use descriptive names that indicate purpose and type
+
+### Component Structure Template
+
+```typescript
+// ComponentName.tsx
+import React from "react";
+import "./ComponentName.module.css";
+
+interface ComponentNameProps {
+  // Define props interface with proper typing
+}
+
+const ComponentName: React.FC<ComponentNameProps> = ({ prop1, prop2 }) => {
+  // Component logic with early returns
+  if (!prop1) {
+    return <div>Loading...</div>;
+  }
+
+  const handleClick = () => {
+    // Event handler logic
+  };
+
+  return (
+    <div className="component-name">{/* JSX with proper accessibility */}</div>
+  );
+};
+
+export default ComponentName;
+```
+
+### Import Organization
+
+1. React and external libraries
+2. Internal components and utilities
+3. Types and interfaces
+4. CSS/SCSS files
+
+### Project Structure
+
+- **Components**: `src/components/` - Reusable UI components
+- **Pages**: `src/pages/` - Route-level components
+- **Services**: `src/services/` - API and business logic
+- **Types**: `src/types/` - TypeScript interfaces and types
+- **Config**: `src/config/` - Configuration files
+- **Utils**: `src/utils/` - Utility functions
+- **Hooks**: `src/hooks/` - Custom React hooks
+
+### State Management Patterns
+
+- Use `GlobalStateProvider` for app-wide state
+- Follow reducer pattern for complex state updates
+- Use context for sharing state between components
+- Implement proper loading states and error handling
+
+### Routing & Navigation
+
+- Use nested routes for hierarchical navigation
+- Implement proper route guards and authentication
+- Use dynamic routing with parameters
+- Handle 404 and redirect cases properly
+
+### Form Patterns
+
+- Use React Hook Form for all form management
+- Implement Yup validation schemas
+- Handle form submission with proper loading states
+- Provide proper error feedback and validation
+
+### API Integration Patterns
+
+- Use centralized request service
+- Implement proper error handling and loading states
+- Use TypeScript interfaces for all API responses
+- Handle data updates and caching properly
+
+### Error Handling
+
+- Use ErrorBoundary component for catching errors
+- Implement proper error logging and user feedback
+- Handle different error types appropriately
+- Provide fallback UI for error states
+
+### Performance Guidelines
+
+- Use lazy loading for routes and heavy components
+- Implement proper bundle splitting
+- Use React.memo for expensive components
+- Optimize imports and dependencies
+
+### Security Guidelines
+
+- Validate all user inputs
+- Sanitize data before API calls
+- Implement proper authentication flow
+- Handle unauthorized access properly
+
+### Accessibility Guidelines
+
+- Use proper ARIA labels and roles
+- Implement keyboard navigation
+- Use semantic HTML elements
+- Support screen readers
+- Follow WCAG guidelines
+
+### Testing Guidelines
+
+- Write tests for complex components
+- Test user interactions and edge cases
+- Mock external dependencies properly
+- Test error scenarios
+
+### Documentation Guidelines
+
+- Comment complex business logic
+- Document component props and interfaces
+- Maintain up-to-date README
+- Include setup instructions and usage examples
+
+Remember: Every piece of code must be complete, functional, and follow these guidelines strictly. No exceptions for production code.
+
+---
+
+## PLANNING & IMPLEMENTATION WORKFLOW - CRITICAL RULE
+
+**MANDATORY APPROACH FOR COMPLEX CHANGES:**
+
+1. **NEVER start implementation immediately** when user requests complex changes or new features
+2. **ALWAYS create a detailed plan first** - break down the request into specific steps, files, and changes
+3. **Present the plan to user** - show exactly what will be created, modified, or deleted
+4. **Wait for explicit confirmation** - user must approve the plan before any implementation
+5. **Only after approval** - begin creating/modifying files according to the approved plan
+
+**PLAN STRUCTURE MUST INCLUDE:**
+
+- List of files to be created (with paths)
+- List of files to be modified (with specific changes)
+- Step-by-step implementation order
+- Dependencies and requirements
+- Expected outcomes and testing approach
+
+**EXAMPLE WORKFLOW:**
+
+```
+User: "Create a solutions system for the assistant"
+
+Assistant: "I'll create a detailed plan for implementing the solutions system. Here's what I propose:
+
+📋 IMPLEMENTATION PLAN
+
+Files to Create:
+1. src/utils/solutions/solutionsLoader.ts
+2. src/content/solutions/oblikflow-en.json
+3. src/utils/assistant/solutionsFunctions.ts
+...
+
+Files to Modify:
+1. src/utils/assistant/toolCallHandler.ts (add solutions handling)
+2. package.json (add new scripts)
+...
+
+Implementation Steps:
+1. Create solutions loader and interfaces
+2. Create sample solution files
+3. Create assistant functions
+4. Integrate with existing system
+5. Add testing and documentation
+
+Do you approve this plan? Should I proceed with implementation?"
+```
+
+**VIOLATION CONSEQUENCE:** If this rule is violated, stop immediately and ask for plan approval before continuing.
+
+## WEEKLY LOGS AND DAILY COMMITS
+
+Purpose: enforce daily commits and maintain a single weekly log file `jobs/<ISO_WEEK>.md` (e.g., `jobs/33.md`) in a format suitable for later Jira task creation.
+
+### Conventions
+
+- WEEK_NUMBER: ISO-8601 week number (e.g., `33`)
+- WEEK_FILE: `jobs/{WEEK_NUMBER}.md`
+- Date format: `YYYY-MM-DD`; Time format: `HH:MM` (local time; keep consistent within a week)
+- Conventional commit types: `feat`, `fix`, `docs`, `refactor`, `perf`, `test`, `build`, `ci`, `chore`, `revert`
+- Optional branch naming: `week{WEEK_NUMBER}/{YYYY-MM-DD}-{short-topic}`
+- Optional PR title: `[W{WEEK_NUMBER}] {short description}`
+
+### Required Actions
+
+- Start of day:
+  - Ensure `WEEK_FILE` exists. If missing, create it with the header and an entry for the current day.
+  - If the current date section is absent, add a new daily block.
+- Each commit:
+  - Use conventional commits: `{type}(scope?): {summary}` (e.g., `feat(editor): add autosave indicator`).
+  - Append a line in the current day under “Commits” in `WEEK_FILE`:
+    - `- {HH:MM} {shortHash} {type}(scope): {summary} [files: path1, path2]`
+- End of day:
+  - Add a “Daily Summary” with: Goal, Done, Risks/Blockers, Carry-over.
+  - Draft Jira candidates for notable chunks of work.
+- End of week:
+  - Verify each day has a “Daily Summary”.
+  - Finalize the “Jira — Candidates” table with Priority and Estimates.
+
+### Categorization (Weekly Report Sections)
+
+- All work in `jobs/{WEEK}.md` MUST be categorized for the weekly report by type. Use conventional commit types to map into sections:
+  - Feature: `feat(...)`
+  - Bugfixes: `fix(...)`
+  - Testing: `test(...)`
+  - Documentation: `docs(...)`
+  - Refactoring/Performance/Build/CI/Chore appear in their respective sections or in “Other”.
+- Daily “Commits” list can stay as flat lines, but by end of week the summary MUST present grouped sections (Feature, Testing, Bugfixes, Documentation) and reference the corresponding commit lines.
+- When multiple kinds of work are done in one day, prefer separate commits per type (e.g., `feat(...)` and `fix(...)`) so they are cleanly grouped in the weekly report.
+
+### WEEK_FILE Structure (`jobs/{WEEK_NUMBER}.md`)
+
+Header:
+
+```markdown
+# Week W{WEEK_NUMBER} ({DATE_START} — {DATE_END})
+```
+
+Daily block (repeat per day):
+
+```markdown
+## {YYYY-MM-DD} ({weekday})
+
+- Branches: `week{WEEK_NUMBER}/{YYYY-MM-DD}-{topic}`, ...
+- Commits:
+  - {HH:MM} {hash} {type}(scope): {summary} [files: path1, path2]
+- Key changes:
+  - {file/module}: {what changed, why}
+- Daily Summary:
+  - Goal: ...
+  - Done: ...
+  - Risks/Blockers: ...
+  - Carry-over: ...
+```
+
+Jira candidates (end of file):
+
+```markdown
+### Jira — Candidates
+
+| Title         | Type            | Description | Acceptance Criteria                    | Priority     | Est.             |
+| ------------- | --------------- | ----------- | -------------------------------------- | ------------ | ---------------- |
+| {short title} | Story/Bug/Chore | What/why    | - [ ] Criterion 1<br>- [ ] Criterion 2 | High/Med/Low | {S/M/L or hours} |
+```
+
+Example commit line:
+
+```markdown
+- 10:42 a1b2c3d feat(editor): add autosave indicator [files: src/components/AutosaveIndicator/AutosaveIndicator.tsx]
+```
+
+### Commit and PR Requirements
+
+- At least one commit per working day.
+- Commit messages must follow conventional commits. Если коммит относится к задаче, сообщение ДОЛЖНО включать маркер `[TASK: KEY-N]`.
+- Avoid meaningless "wip"; if draft, specify purpose and scope.
+- Link Jira issue when applicable, e.g., `[#JIRA-123]`.
+- PR title: `[W{WEEK_NUMBER}] {short description}`; include a link to the week section, change scope, risks, and a test checklist.
+
+### Assistant Automations
+
+- On first open each day: prompt to create/update `WEEK_FILE` and add the day block.
+- After each git commit: prompt to append a commit line to the day, offering an auto-suggested file list from `git diff --name-only`.
+- 15 minutes before day end: remind to complete the Daily Summary and Jira candidates.
+- Monday morning: suggest closing the previous week and creating `jobs/{new WEEK_NUMBER}.md`.
+
+### Tips
+
+- Get ISO week number on macOS: `date +%V`
+- Recommended path: `jobs/{WEEK_NUMBER}.md` (e.g., `jobs/33.md`)
+
+---
+
+## WORKFLOW — РЕЖИМЫ РАБОТЫ
+
+Цели: ясное документирование работ, чистая история, изоляция изменений.
+
+### Simple Mode (по умолчанию)
+
+- Ветки: `feature/{JIRA?}-{short-topic}` от `development`. Дневные ветки НЕ используются.
+- Merge: feature → `development` через fast‑forward после локального rebase на `development`.
+- Logs: ведём `jobs/{WEEK}.md` с разделами задач (см. `docs/IDE/jobs.md`).
+
+Ежедневный цикл (Simple):
+
+1. Утро — rebase feature на `development`.
+2. День — коммиты по conventional commits, записи в `jobs/{WEEK}.md`.
+3. Завершение фичи — ff‑merge feature → `development` (после green checks).
+
+### Strict Mode (опционально, см. docs/IDE/workflow.md)
+
+- Дополнительно создаются дневные ветки `week{ISO}/{YYYY-MM-DD}-{short-topic}` от feature.
+- EOD: squash day → feature. Затем стандартно feature → `development` (rebase + ff‑merge).
+
+### Политика push
+
+- ВАЖНО: работа по умолчанию ведётся ТОЛЬКО локально. Любые push в удалённый репозиторий выполняются только по явному разрешению/команде владельца репозитория.
+- Команды из подразделов «3. Конец дня — PR дневной → feature» и «4. Завершение фичи — PR feature → development» считаются отключёнными по умолчанию и приведены как справочные. Использовать их можно только после явного разрешения.
+
+### Политика выполнения команд
+
+- Перед запуском любых команд (git/gh/скрипты), влияющих на ветки, историю, удалённый репозиторий или массово изменяющих файлы, ассистент обязан:
+  - кратко описать план шагов (списком),
+  - дождаться явного подтверждения пользователя,
+  - выполнять действия только локально по умолчанию.
+- Без явного подтверждения запрещено:
+  - merge/rebase/cherry-pick,
+  - удаление веток,
+  - push/pull/создание/мердж PR (любые gh-команды),
+  - генераторы и скрипты, массово меняющие файлы.
+
+#### Approval gates (обязательные этапы согласования)
+
+- Перед изменениями кода: отправить «План» с пофайловым перечнем (что меняется и как) и дождаться «ОК».
+- После правок и до git-команд: отправить «Список команд» (git add/commit/... с краткими пояснениями), выполнять только после «ОК».
+- После каждого коммита: добавить строку в `jobs/{WEEK}.md` (раздел текущего дня) и показать её пользователю.
+- Любые push/PR — только по отдельной явной команде пользователя.
+
+### Approval gates и push‑политика (для обоих режимов)
+
+- Перед изменениями кода: отправить план, дождаться ОК.
+- После правок — показать список git‑команд, ждать ОК.
+- Push/PR — только по отдельному разрешению.
+
+### Несколько фич в день
+
+Допустимо вести несколько дневных веток — по одной на каждую активную feature-ветку. В `jobs/{WEEK}.md` при этом все записи — в одном дневном блоке.
+
+### Именование и PR
+
+- Коммиты: `feat(editor): ...`, `fix(backend): ...`, `docs(jobs): ...` и т. п.
+- PR заголовки: для дневных — `[W{ISO}] {short-topic} EOD {YYYY-MM-DD}`; для feature → `development` — `[W{ISO}] {short-topic} — feature complete`.
+- PR описание содержит ссылку на соответствующий раздел дня в `jobs/{WEEK}.md` и чек-лист тестов.
+
+### Команды (bash, Strict Mode пример)
+
+Инициализация переменных (замените значения на свои):
+
+```bash
+FEATURE="feature/ED-123-editor-autosave"   # ваша feature-ветка
+TOPIC="editor-autosave"                    # короткая тема
+WEEK="$(date +%V)"                         # ISO неделя
+DAY="$(date +%F)"                          # YYYY-MM-DD
+DAY_BRANCH="week${WEEK}/${DAY}-${TOPIC}"   # дневная ветка
+WEEK_FILE="jobs/${WEEK}.md"
+```
+
+1. Утро — обновление feature и создание дневной ветки
+
+```bash
+git checkout "$FEATURE"
+git fetch origin | cat
+git rebase origin/development
+git checkout -b "$DAY_BRANCH"
+
+# Создать WEEK_FILE при необходимости и добавить дневной блок
+if [ ! -f "$WEEK_FILE" ]; then
+  START=$(date -v-mon +"%Y-%m-%d")
+  END=$(date -v-sun +"%Y-%m-%d")
+  echo "# Week W${WEEK} (${START} — ${END})" > "$WEEK_FILE"
+fi
+if ! grep -q "## ${DAY} " "$WEEK_FILE"; then
+  printf "\n## %s (%s)\n\n- Branches: \`%s\`\n- Commits:\n- Key changes:\n- Daily Summary:\n  - Goal: \n  - Done: \n  - Risks/Blockers: \n  - Carry-over: \n" \
+    "$DAY" "$(date +%A)" "$DAY_BRANCH" >> "$WEEK_FILE"
+fi
+```
+
+2. Коммиты в течение дня и запись в `jobs/{WEEK}.md`
+
+```bash
+# Пример коммита
+git add -A
+git commit -m "feat(editor): [TASK: AUTH-42] add autosave indicator"
+
+# Добавить строку в jobs с временем, хэшем и файлами
+TIME=$(date +"%H:%M")
+HASH=$(git rev-parse --short HEAD)
+FILES=$(git diff-tree --no-commit-id --name-only -r HEAD | tr '\n' ', ' | sed 's/, $//')
+echo "- ${TIME} ${HASH} feat(editor): [TASK: AUTH-42] add autosave indicator [files: ${FILES}]" >> "$WEEK_FILE"
+```
+
+3. Конец дня — PR дневной → feature (Squash and merge)
+
+```bash
+git push -u origin "$DAY_BRANCH"
+
+# Создать PR (требуется GitHub CLI: gh)
+gh pr create \
+  --head "$DAY_BRANCH" \
+  --base "$FEATURE" \
+  --title "[W${WEEK}] ${TOPIC} EOD ${DAY}" \
+  --body "См. ${WEEK_FILE}#${DAY}"
+
+# После squash-merge — удалить дневную ветку локально и на origin
+git branch -D "$DAY_BRANCH"
+git push origin :"$DAY_BRANCH"
+```
+
+4. Завершение фичи — PR feature → development (Rebase and merge)
+
+```bash
+git checkout "$FEATURE"
+git fetch origin | cat
+git rebase origin/development
+
+gh pr create \
+  --head "$FEATURE" \
+  --base development \
+  --title "[W${WEEK}] ${TOPIC} — feature complete" \
+  --body "Сводка и ссылки на дни: ${WEEK_FILE}"
+```
+
+### Контроль качества
+
+- Блокирующие условия для PR: green CI (lint, typecheck, tests, build), минимум 1 ревью.
+- Commitlint для проверки формата сообщений коммитов.
+- Pre-commit hooks: линтер, типизация, тесты. Pre-push: проверка наличия дневного блока в `jobs/{WEEK}.md`.
+
+---
+
+## PM Reporting — стандарты описания работ
+
+Цель: однозначно парсировать `jobs/{WEEK}.md` и автоматически формировать список выполненных задач для PM.
+
+### Требования
+
+- Каждая задача фиксируется в дневном блоке в одной из секций: "Задачи — Выполнены", "Задачи — В работе", "Задачи — Блокированы".
+- Формат строки задачи — строгий, парсируемый (ключи в фиксированном виде, поля через `|`):
+
+```markdown
+- [x] id=KEY-123 | title=Короткое имя задачи | outcome=Короткий проверяемый результат | pr=#NN | commits=hash1,hash2 | files=path1,path2 | scope=module
+```
+
+- Коммиты, связанные с задачей, содержат маркер `[TASK: KEY-N]`.
+
+### Регулярные выражения
+
+- Маркер задачи в коммите: `\[(?:TASK:\\s*)([A-Z]+-\d+)\]`
+- Строка задачи (выполнено): `^- \\[(x| |\!)\\]\s+id=([A-Z]+-\d+)\s+\\|\\s+title=(.+?)\\s+\\|\\s+outcome=(.+?)(?:\\s+\\|\\s+.*)?$`
+
+### Итог недели для PM
+
+В конце файла недели добавляется раздел:
+
+```markdown
+### PM — Completed Tasks (W{WEEK_NUMBER})
+
+- KEY-123: Короткое имя задачи — Короткий проверяемый результат (PR #NN)
+```
+
+Этот раздел может генерироваться автоматически из всех дневных секций "Задачи — Выполнены" за неделю.
+
+### Опционально: локальный pre-push hook для запрета push
+
+```bash
+mkdir -p .git/hooks
+cat > .git/hooks/pre-push << 'SH'
+#!/bin/sh
+if [ "$ALLOW_PUSH" != "1" ]; then
+  echo "Push blocked. Set ALLOW_PUSH=1 to override (one-time): ALLOW_PUSH=1 git push"
+  exit 1
+fi
+exit 0
+SH
+chmod +x .git/hooks/pre-push
+```
+
+---
+
+## SYSTEM RULES
+
+### Imports & Modules
+
+- 🚫 Запрещены `require`, lazy-imports и динамические импорты в TypeScript.
+- ✅ Только статические top-level imports.
+- ✅ Расширяй существующие импорты, без inline-импортов.
+- 🚫 Новые техники/паттерны — только по явному согласованию.
+
+### Contracts
+
+- 🚫 Нельзя менять сигнатуры функций и типы возврата без согласования.
+- 🚫 Нельзя менять DOM-контракты (структуру JSX/HTML) без согласования.
+
+### Scope & Minimality
+
+- Менять только согласованную область.
+- 🚫 Никаких побочных рефакторингов/«улучшений» вне плана.
+- Если нужна утилита/централизация — сначала предложить концепт, дождаться “ОК”.
+
+### Communication
+
+- Сообщения короткие и структурированные: **сначала “что сделаю”**, затем выполнение.
+- Любой риск/отклонение — стоп и запрос подтверждения.
+
+---
+
+## APPROVAL GATES (жёстко)
+
+1. **Перед изменениями**: план (файлы → точечные изменения → ожидаемый результат). Ждать «ОК».
+2. **Если файл откатан пользователем**: стоп-сигнал — перечитать состояние, обновить план, **не возвращать отклонённое решение**.
+3. **Black-list (сессия)**: отклонённые решения не предлагать повторно.
+4. **Фиксация договорённостей**: принятые правила фиксировать локально и сверяться перед каждым изменением.
+5. **Перед git-командами**: показать список команд (add/commit/…), ждать «ОК».
+6. **Push/PR**: только по явной команде пользователя.
+
+---
+
+## NO-AUTO-FIX POLICY (критично)
+
+- 🚫 **Запрещено** автоматически переписывать файлы без утверждения, включая:
+  - ESLint/Prettier/Stylelint **с флагами автоисправлений** (`--fix`, авто-codeActionsOnSave).
+  - IDE/Editor авто-рефакторинги и быстрые исправления.
+- ✅ При **любой** ошибке линтера/типизации:
+  1. **Остановиться**, показать **список конкретных правок** (по файлам/по строкам).
+  2. Дождаться «ОК».
+  3. Только затем применять патчи.
+- Если после выполнения команды появились незапланированные правки — **не сохранять** и запросить подтверждение на каждый файл/хунк.
+
+---
+
+## WORKFLOW, LOGS & CI (кратко)
+
+- `jobs/{WEEK}.md`: дневные блоки, коммиты, Daily Summary, Jira-кандидаты.
+- Блокирующие условия PR: green CI (lint/typecheck/tests/build), ≥1 review.
+- Pre-commit/Pre-push hooks: линтер (check-mode), типизация, тесты, проверка наличия дневного блока.
