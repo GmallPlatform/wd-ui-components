@@ -1,5 +1,6 @@
 # wd-ui-components
 
+<!-- release: trigger patch via OIDC trusted publishing -->
 ## Overview
 
 Reusable UI components and dynamic form builder for admin panels. Unifies reusable components and forms with customizable styling and validation. Supports per-microfrontend namespaced events to avoid collisions.
