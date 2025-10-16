@@ -17,7 +17,10 @@
     ]
   ],
   "publish": [
-    "@semantic-release/npm",
+    [
+      "@semantic-release/exec",
+      { "publishCmd": "npm publish --provenance --access public" }
+    ],
     [
       "@semantic-release/github",
       {
@@ -40,7 +43,7 @@
       }
     ]
   ],
-  "addChannel": ["@semantic-release/npm", "@semantic-release/github"],
+  "addChannel": ["@semantic-release/github"],
   "analyzeCommits": "@semantic-release/commit-analyzer",
   "generateNotes": "@semantic-release/release-notes-generator"
 }
