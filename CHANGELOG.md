@@ -1,3 +1,13 @@
+## [1.0.21](https://github.com/GmallPlatform/wd-ui-components/compare/v1.0.20...v1.0.21) (2025-10-16)
+
+
+### Bug Fixes
+
+* **ci:** grant write permissions for semantic-release (tags, issues) ([30fd7b3](https://github.com/GmallPlatform/wd-ui-components/commit/30fd7b35bd5b8912c5542232ce4c726c05bdb3e9))
+* **ci:** migrate to npm OIDC trusted publishing and enable provenance ([d511bb3](https://github.com/GmallPlatform/wd-ui-components/commit/d511bb3e7748bbacb597eb012a54f3a0505aeb64))
+* **ci:** migrate to npm OIDC trusted publishing and enable provenance ([b5c0b29](https://github.com/GmallPlatform/wd-ui-components/commit/b5c0b2919996d07420c229e74333aca853150b9d))
+* **release:** adapt semantic-release for OIDC (skip npm verifyConditions) ([5b6027a](https://github.com/GmallPlatform/wd-ui-components/commit/5b6027afabfcd11bd78acf72549c5049ce17ee86))
+
 ## [1.0.20](https://github.com/GmallPlatform/wd-ui-components/compare/v1.0.19...v1.0.20) (2025-07-25)
 
 
