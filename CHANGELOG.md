@@ -1,3 +1,10 @@
+## [1.0.24](https://github.com/GmallPlatform/wd-ui-components/compare/v1.0.23...v1.0.24) (2025-10-16)
+
+
+### Bug Fixes
+
+* **release:** publish via exec npm publish --provenance (OIDC) ([e229d77](https://github.com/GmallPlatform/wd-ui-components/commit/e229d775816bd62979b0552ea42680cc3b10fa52))
+
 ## [1.0.23](https://github.com/GmallPlatform/wd-ui-components/compare/v1.0.22...v1.0.23) (2025-10-16)
 
 
