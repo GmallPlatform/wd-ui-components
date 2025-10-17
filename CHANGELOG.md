@@ -1,3 +1,10 @@
+## [1.0.25](https://github.com/GmallPlatform/wd-ui-components/compare/v1.0.24...v1.0.25) (2025-10-17)
+
+
+### Bug Fixes
+
+* **ci:** publish via @semantic-release/npm, disable husky, always-auth ([0f04ea3](https://github.com/GmallPlatform/wd-ui-components/commit/0f04ea3614b6bbef75bec37e474f4a4038d11c2e))
+
 ## [1.0.24](https://github.com/GmallPlatform/wd-ui-components/compare/v1.0.23...v1.0.24) (2025-10-16)
 
 
