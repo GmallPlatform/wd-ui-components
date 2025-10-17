@@ -12,6 +12,21 @@ DAY=$(date +%F)
 WEEK_FILE="jobs/${WEEK}.md"
 BRANCH=$(git rev-parse --abbrev-ref HEAD)
 
+# Pre-rebase with safe stash to ensure pushable state after commit
+git fetch origin || true
+if git ls-remote --exit-code --heads origin "$BRANCH" >/dev/null 2>&1; then
+  STASH_NAME="commit-once-pre-rebase-$(date +%s)"
+  git stash push -u -m "$STASH_NAME" || true
+  if ! git rebase "origin/${BRANCH}"; then
+    git rebase --abort || true
+    # Try to restore stashed changes before exiting
+    git stash list | grep -q "$STASH_NAME" && git stash pop -q || true
+    echo "Rebase failed. Resolve conflicts and retry." >&2
+    exit 1
+  fi
+  git stash list | grep -q "$STASH_NAME" && git stash pop -q || true
+fi
+
 # Ensure weekly file and daily block
 if [ ! -f "$WEEK_FILE" ]; then
   START=$(date -v-mon +"%Y-%m-%d" 2>/dev/null || date -d "last monday" +"%Y-%m-%d")
