@@ -17,10 +17,7 @@
     ]
   ],
   "publish": [
-    [
-      "@semantic-release/exec",
-      { "publishCmd": "npm publish --provenance --access public" }
-    ],
+    ["@semantic-release/npm", { "npmPublish": true }],
     [
       "@semantic-release/github",
       {
