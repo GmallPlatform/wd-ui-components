@@ -7,6 +7,17 @@ if [ -z "$MSG" ]; then
   exit 2
 fi
 
+# Enforce release-eligible commit types (will trigger at least patch)
+TYPE_PREFIX=${MSG%%(*}
+TYPE_PREFIX=${TYPE_PREFIX%%:*}
+case "$TYPE_PREFIX" in
+  feat|fix|perf|refactor|docs|chore|build|ci|style|test) ;;
+  *)
+    echo "Commit type '$TYPE_PREFIX' is not release-eligible. Use one of: feat|fix|perf|refactor|docs|chore|build|ci|style|test" >&2
+    exit 3
+    ;;
+esac
+
 WEEK=$(date +%V)
 DAY=$(date +%F)
 WEEK_FILE="jobs/${WEEK}.md"
