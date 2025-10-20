@@ -1,3 +1,5 @@
+## [1.0.27](https://github.com/GmallPlatform/wd-ui-components/compare/v1.0.26...v1.0.27) (2025-10-20)
+
 ## [1.0.26](https://github.com/GmallPlatform/wd-ui-components/compare/v1.0.25...v1.0.26) (2025-10-20)
 
 
