@@ -1,3 +1,12 @@
+## [1.0.26](https://github.com/GmallPlatform/wd-ui-components/compare/v1.0.25...v1.0.26) (2025-10-20)
+
+
+### Bug Fixes
+
+* **release:** add conventional-changelog-conventionalcommits preset for semantic-release ([429cdf2](https://github.com/GmallPlatform/wd-ui-components/commit/429cdf26831499390df5af2c4502bbb6e119646b))
+* **release:** correct analyzeCommits config to trigger semantic-release and publish to npm ([8ec2d5a](https://github.com/GmallPlatform/wd-ui-components/commit/8ec2d5abbe51b614c226bbe1bb966d9e4afb1d0e))
+* **release:** enforce release on any conventional type and guard commit-once ([e4320a2](https://github.com/GmallPlatform/wd-ui-components/commit/e4320a23d43f296af2540bef36e4f9a47d11ed8d))
+
 ## [1.0.25](https://github.com/GmallPlatform/wd-ui-components/compare/v1.0.24...v1.0.25) (2025-10-17)
 
 
